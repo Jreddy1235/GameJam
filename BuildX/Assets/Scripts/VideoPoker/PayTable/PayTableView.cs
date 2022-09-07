@@ -13,8 +13,10 @@ public class PayTableView : MonoBehaviour
     [SerializeField] private TMP_Text txtBetRange;
     [SerializeField] private GameObject goDealBtn;
     [SerializeField] private GameObject goDrawBtn;
+    [SerializeField] private HandView handView;
 
     private List<PayTableRowView> _payTableRows;
+    private PayTableRowView _selectedRow;
 
     private void OnEnable()
     {
@@ -41,7 +43,7 @@ public class PayTableView : MonoBehaviour
     private void Clear()
     {
         if (_payTableRows == null) return;
-        
+
         _payTableRows.ForEach(t => Destroy(t.gameObject));
         _payTableRows.Clear();
     }
@@ -63,7 +65,7 @@ public class PayTableView : MonoBehaviour
         txtBetRange.text = range.Item1.KiloFormat() + "-" + range.Item2.KiloFormat();
         SetBetMultiplier();
     }
-    
+
     private void SetBetMultiplier()
     {
         txtCurrentBet.text = VideoPokerManager.Instance.CurrentBet.KiloFormat();
@@ -74,12 +76,20 @@ public class PayTableView : MonoBehaviour
     {
         goDealBtn.SetActive(false);
         goDrawBtn.SetActive(true);
+        handView.Deal();
+        if (_selectedRow != null)
+            _selectedRow.ToggleSelection(false, VideoPokerManager.Instance.PayTableData.ColorDeselected);
     }
 
     public void OnDrawButtonClick()
     {
         goDealBtn.SetActive(true);
         goDrawBtn.SetActive(false);
+        var handType = handView.Draw();
+
+        if (handType == HandType.None) return;
+        _selectedRow = _payTableRows.Find(t => t.HandType == handType);
+        _selectedRow.ToggleSelection(true, VideoPokerManager.Instance.PayTableData.ColorSelected);
     }
 
     public void OnBetIncreaseBtnClick()
@@ -100,214 +110,4 @@ public class PayTableView : MonoBehaviour
         SetBetRanges();
         GeneratePayTable();
     }
-    // public List<int> BetAmounts { get; set; }
-    //
-    // public int Count
-    // {
-    //     get { return rows.Count; }
-    // }
-    //
-    // public const int ColCount = 5;
-    //
-    // public Dictionary<int, int> BetRanges { get; set; }
-    //
-    // private List<PayTableRow> rows;
-    // private GameMode gameMode;
-    //
-    // public PayTableView(GameMode gameMode, GameRoom gameRoom)
-    // {
-    //     this.gameMode = gameMode;
-    //     rows = GameController.instance.Progression.GetPayTableRows(gameMode, gameRoom);
-    //     BetAmounts = rows.Select(t => t.minBetAmount).Where(t => t > 0).ToList();
-    //     BetRanges = GetBetRanges();
-    // }
-    //
-    // public string GetHandDescription(HandType handType)
-    // {
-    //     return rows.Find(t => t.handType == handType).name;
-    // }
-    //
-    // public List<HandType> GetHandTypes()
-    // {
-    //     return rows.Select(t => t.handType).ToList();
-    // }
-    //
-    // public int GetMaxBetAmount(int betRangeIndex)
-    // {
-    //     return BetRanges.ElementAt(betRangeIndex).Value;
-    // }
-    //
-    // public int GetMinBetAmount(int betRangeIndex)
-    // {
-    //     return BetRanges.ElementAt(betRangeIndex).Key;
-    // }
-    //
-    // public int GetBetIndex(int currentBet, int betRangeIndex)
-    // {
-    //     int minBet = BetRanges.ElementAt(betRangeIndex).Key;
-    //     PayTableRow row = rows.Last();
-    //     for (int i = 0; i < row.multipliers.Count; i++)
-    //     {
-    //         if (row.multipliers[i] * minBet == currentBet)
-    //         {
-    //             return i;
-    //         }
-    //     }
-    //
-    //     return -1;
-    // }
-    //
-    // public KeyValuePair<int, int> GetNearestBet(GameMode gameMode, long totalChips)
-    // {
-    //     int amount = GameController.instance.Progression.GetDefaultBetAmount(gameMode, totalChips);
-    //     if (amount > BetRanges.Last().Value)
-    //         return new KeyValuePair<int, int>(BetRanges.Count - 1, BetRanges.Last().Value);
-    //     if (amount < BetRanges.First().Key)
-    //         return new KeyValuePair<int, int>(0, BetRanges.First().Key);
-    //     var tempBet = BetRanges.First();
-    //     if (tempBet.Key == tempBet.Value)
-    //         tempBet = BetRanges.Last(t => t.Key <= amount);
-    //     else
-    //         tempBet = BetRanges.First(t => t.Key <= amount && t.Value > amount);
-    //     PayTableRow row = rows.Last();
-    //     if (gameMode == GameMode.HotPoker || gameMode == GameMode.Scattershot || gameMode == GameMode.MultiStagePoker)
-    //     {
-    //         for (int i = 0; i < rows.Count; i++)
-    //         {
-    //             if (rows[i].minBetAmount * tempBet.Key >= amount)
-    //             {
-    //                 return new KeyValuePair<int, int>(BetRanges.Keys.ToList().FindIndex(t => t == tempBet.Key),
-    //                     tempBet.Key);
-    //             }
-    //         }
-    //     }
-    //     else
-    //     {
-    //         for (int i = 0; i < row.multipliers.Count; i++)
-    //         {
-    //             if (row.multipliers[i] * tempBet.Key >= amount)
-    //             {
-    //                 return new KeyValuePair<int, int>(BetRanges.Keys.ToList().FindIndex(t => t == tempBet.Key),
-    //                     (int) row.multipliers[i] * tempBet.Key);
-    //             }
-    //         }
-    //     }
-    //
-    //     return new KeyValuePair<int, int>(row.multipliers.Count - 1, (int) row.multipliers.Last() * tempBet.Key);
-    // }
-    //
-    // public int GetNextBetAmount(int currentBet, int betRangeIndex)
-    // {
-    //     int minBet = BetRanges.ElementAt(betRangeIndex).Key;
-    //     PayTableRow row = rows.Last();
-    //     for (int i = 0; i < row.multipliers.Count; i++)
-    //     {
-    //         if (row.multipliers[i] * minBet == currentBet)
-    //         {
-    //             if (i == row.multipliers.Count - 1)
-    //                 return (int) (row.multipliers[0] * minBet);
-    //             else
-    //                 return (int) (row.multipliers[i + 1] * minBet);
-    //         }
-    //     }
-    //
-    //     return -1;
-    // }
-    //
-    // public int GetPreviousBetAmount(int currentBet, int betRangeIndex)
-    // {
-    //     int minBet = BetRanges.ElementAt(betRangeIndex).Key;
-    //     PayTableRow row = rows.Last();
-    //     for (int i = 0; i < row.multipliers.Count; i++)
-    //     {
-    //         if (row.multipliers[i] * minBet == currentBet)
-    //         {
-    //             if (i == 0)
-    //                 return (int) (row.multipliers[row.multipliers.Count - 1] * minBet);
-    //             else
-    //                 return (int) (row.multipliers[i - 1] * minBet);
-    //         }
-    //     }
-    //
-    //     return -1;
-    // }
-    //
-    // private Dictionary<int, int> GetBetRanges()
-    // {
-    //     Dictionary<int, int> betRangeDict = new Dictionary<int, int>();
-    //     for (int i = 0; i < BetAmounts.Count; i++)
-    //     {
-    //         betRangeDict[BetAmounts[i]] = (int) rows.Last().multipliers.Last() * BetAmounts[i];
-    //     }
-    //
-    //     return betRangeDict;
-    // }
-    //
-    // public Dictionary<string, List<int>> GetBetData(int betAmount)
-    // {
-    //     Dictionary<string, List<int>> betData = new Dictionary<string, List<int>>();
-    //     for (int i = 0; i < rows.Count; i++)
-    //     {
-    //         betData[rows[i].name] = new List<int>();
-    //         for (int j = 0; j < rows[i].multipliers.Count; j++)
-    //         {
-    //             switch (gameMode)
-    //             {
-    //                 case GameMode.ClassicPoker:
-    //                     betData[rows[i].name].Add((int) (rows[i].multipliers[j] * betAmount));
-    //                     break;
-    //                 case GameMode.HotPoker:
-    //                 case GameMode.MultiStagePoker:
-    //                     betData[rows[i].name].Add((int) ((rows[i].multipliers[j] * betAmount) / 4));
-    //                     break;
-    //                 case GameMode.High5SequelChallenge:
-    //                 case GameMode.Scattershot:
-    //                     betData[rows[i].name].Add((int) ((rows[i].multipliers[j] * betAmount) / 5));
-    //                     break;
-    //             }
-    //         }
-    //     }
-    //
-    //     return betData;
-    // }
-    //
-    // public Dictionary<string, List<int>> GetBetData(List<int> betAmounts, int betRangeIndex, out int skipCount)
-    // {
-    //     skipCount = 0;
-    //     switch (gameMode)
-    //     {
-    //         case GameMode.HotPoker:
-    //         case GameMode.MultiStagePoker:
-    //             betAmounts = betAmounts.Concat(betAmounts.Take(betRangeIndex)).Skip(betRangeIndex).Take(ColCount)
-    //                 .ToList();
-    //             break;
-    //         case GameMode.High5SequelChallenge:
-    //         case GameMode.Scattershot:
-    //             skipCount = Mathf.Clamp(betRangeIndex, 0, betAmounts.Count - ColCount);
-    //             betAmounts = betAmounts.Skip(skipCount).Take(ColCount).ToList();
-    //             break;
-    //     }
-    //
-    //     Dictionary<string, List<int>> betData = new Dictionary<string, List<int>>();
-    //     for (int i = 0; i < betAmounts.Count; i++)
-    //     {
-    //         var tempBetData = GetBetData(betAmounts[i]);
-    //         if (betData.Count == 0)
-    //         {
-    //             foreach (var item in tempBetData)
-    //             {
-    //                 betData[item.Key] = item.Value;
-    //             }
-    //         }
-    //         else
-    //         {
-    //             foreach (var item in betData)
-    //             {
-    //                 item.Value.AddRange(tempBetData[item.Key]);
-    //             }
-    //         }
-    //     }
-    //
-    //     return betData;
-    // }
 }

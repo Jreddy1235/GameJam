@@ -11,13 +11,20 @@ namespace VideoPoker.PayTable
         [SerializeField] private int[] betOptions;
         [SerializeField] private Color colorSelected;
         [SerializeField] private Color colorDeselected;
+        [SerializeField] private bool isJokersWild;
 
+        public bool IsJokersWild => isJokersWild;
         public Color ColorSelected => colorSelected;
         public Color ColorDeselected => colorDeselected;
 
         public (int,int) GetBetMultiplierRange(int index)
         {
             return (data[index].Multipliers.First(),data[index].Multipliers.Last());
+        }
+          
+        public IEnumerable<HandType> GetHandTypes()
+        {
+            return data.Select(t=>t.HandType);
         }
         
         public PayTableRow[] GetPayTableData(int betAmount)
@@ -37,6 +44,11 @@ namespace VideoPoker.PayTable
         public int[] GetBetOptions()
         {
             return betOptions;
+        }
+
+        public PayTableRow GetPayTableRow(HandType handType)
+        {
+            return data.First(t => t.HandType == handType);
         }
     }
 }

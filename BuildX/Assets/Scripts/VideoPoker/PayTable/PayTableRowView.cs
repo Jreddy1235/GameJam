@@ -10,8 +10,11 @@ namespace VideoPoker.PayTable
         [SerializeField] private TMP_Text txtName;
         [SerializeField] private TMP_Text[] txtMultipliers;
 
+        public HandType HandType { get; set; }
+        
         public void SetData(PayTableRow payTableRow, Color defaultColor)
         {
+            HandType = payTableRow.HandType;
             goArrow.SetActive(false);
             txtName.text = payTableRow.Name;
             txtName.color = defaultColor;
