@@ -2,7 +2,6 @@
 using UnityEngine;
 using System.Linq;
 using NaughtyAttributes;
-using UnityEditor;
 
 [CreateAssetMenu(menuName = "VideoPoker/Deck Sprites", fileName = "DeckSprites")]
 public class DeckSprites : ScriptableObject
@@ -58,7 +57,7 @@ public class DeckSprites : ScriptableObject
             cardSprites[i].suit = (CardSuit) Enum.Parse(typeof(CardSuit), names[0]);
         }
 
-        EditorUtility.SetDirty(this);
+        UnityEditor.EditorUtility.SetDirty(this);
         Debug.Log($"{name} sprite list updated.");
     }
 #endif
