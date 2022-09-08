@@ -16,24 +16,40 @@ namespace BrilliantBingo.Code.Scripts
         [SerializeField]
         private ReadySteadyGoView _readySteadyGoView;
 
+        [SerializeField] private GameObject _roundOverText;
+        [SerializeField] private GameObject _restartButton;
+
         #endregion
 
         #region Methods
 
         public void Awake()
         {
+            _roundOverText.SetActive(false);
+            _restartButton.SetActive(false);
             _readySteadyGoView.Hide();
             _readySteadyGoView.Go += OnGo;
 
             CoreGameObjectsLocator.Default.CardsCollection.AllCardsFinishToPlay -= OnAllCardsFinishToPlay;
             CoreGameObjectsLocator.Default.CardsCollection.AllCardsFinishToPlay += OnAllCardsFinishToPlay;
+
+            CoreGameObjectsLocator.Default.BingoBallsSource.OnAllBingoBallsFinished += OnAllBingoBallsFinished;
         }
 
         public void Start()
         {
+            _restartButton.SetActive(false);
+            _roundOverText.SetActive(false);
             Invoke("ShowDialog", 1f);
         }
 
+        public void Restart()
+        {
+            CoreGameObjectsLocator.Default.CardsLayoutManager.ClearCards();
+            CoreGameObjectsLocator.Default.BingoBallsSource.Restart();
+            CoreGameObjectsLocator.Default.GeneratedNumbersManager.ResetNumbers();
+            Start();
+        }
         private void ShowDialog()
         {
             CoreGameObjectsLocator.Default.DialogManager.ShowSelectCardsCountDialog(OnCountOfCardsSelected);
@@ -49,7 +65,22 @@ namespace BrilliantBingo.Code.Scripts
         private void OnAllCardsFinishToPlay(object sender, AllCardsFinishToPlayEventArgs e)
         {
             Debug.Log("Game is over. Count of win cards: " + e.WinCardsCount);
+            RoundOver();
+        }
+
+        private void OnAllBingoBallsFinished()
+        {
+            Debug.Log("Game is over. All Numbers are called");
+            RoundOver();
+        }
+
+        private void RoundOver()
+        {
+            _restartButton.SetActive(true);
+            _roundOverText.SetActive(true);
+            _readySteadyGoView.Hide();
             CoreGameObjectsLocator.Default.BingoBallsSource.Stop();
+            CoreGameObjectsLocator.Default.CardsCollection.ClearCollection();
         }
 
         private void OnGo(object sender, EventArgs e)

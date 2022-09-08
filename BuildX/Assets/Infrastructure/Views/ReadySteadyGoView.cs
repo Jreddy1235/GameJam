@@ -5,6 +5,8 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 {
     public class ReadySteadyGoView : MonoBehaviour
     {
+        [SerializeField] private Animator _animator;
+        
         #region Events
 
         public event EventHandler Go;

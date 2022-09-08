@@ -1,4 +1,5 @@
-﻿using BrilliantBingo.Code.Infrastructure.Layout.Interfaces;
+﻿using System.Collections.Generic;
+using BrilliantBingo.Code.Infrastructure.Layout.Interfaces;
 using UnityEngine;
 
 namespace BrilliantBingo.Code.Infrastructure.Layout
@@ -19,18 +20,25 @@ namespace BrilliantBingo.Code.Infrastructure.Layout
         [SerializeField]
         private RectTransform _fourCardsLayout;
 
+        private List<GameObject> _cardList = new List<GameObject>();
+
         #endregion
 
         #region Methods
 
         public void Awake()
         {
-            _singleCardLayout.gameObject.SetActive(false);
-            _twoCardsLayout.gameObject.SetActive(false);
-            _threeCardsLayout.gameObject.SetActive(false);
-            _fourCardsLayout.gameObject.SetActive(false);
+            SetVisibilityOfCards(false);
         }
 
+        public void SetVisibilityOfCards(bool flag)
+        {
+            _singleCardLayout.gameObject.SetActive(flag);
+            _twoCardsLayout.gameObject.SetActive(flag);
+            _threeCardsLayout.gameObject.SetActive(flag);
+            _fourCardsLayout.gameObject.SetActive(flag);
+        }
+        
         #endregion
 
         #region ICardsLayoutManager
@@ -63,6 +71,7 @@ namespace BrilliantBingo.Code.Infrastructure.Layout
 
         public void LayoutOneCard(GameObject firstCard)
         {
+            _cardList.Add(firstCard);
             _singleCardLayout.gameObject.SetActive(true);
 
             firstCard.GetComponent<RectTransform>().SetParent(_singleCardLayout, false);
@@ -71,6 +80,8 @@ namespace BrilliantBingo.Code.Infrastructure.Layout
 
         public void LayoutTwoCards(GameObject firstCard, GameObject secondCard)
         {
+            _cardList.Add(firstCard);
+            _cardList.Add(secondCard);
             _twoCardsLayout.gameObject.SetActive(true);
             firstCard.GetComponent<RectTransform>().SetParent(_twoCardsLayout, false);
             firstCard.GetComponent<RectTransform>().localScale = new Vector3(1,1,1);
@@ -81,6 +92,10 @@ namespace BrilliantBingo.Code.Infrastructure.Layout
         public void LayoutThreeCards(GameObject firstCard, GameObject secondCard, 
             GameObject thirdCard)
         {
+            _cardList.Add(firstCard);
+            _cardList.Add(secondCard);
+            _cardList.Add(thirdCard);
+            
             _threeCardsLayout.gameObject.SetActive(true);
             firstCard.GetComponent<RectTransform>().SetParent(_threeCardsLayout, false);
             firstCard.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
@@ -93,6 +108,11 @@ namespace BrilliantBingo.Code.Infrastructure.Layout
         public void LayoutFourCards(GameObject firstCard, GameObject secondCard, 
             GameObject thirdCard, GameObject fourthCard)
         {
+            _cardList.Add(firstCard);
+            _cardList.Add(secondCard);
+            _cardList.Add(thirdCard);
+            _cardList.Add(fourthCard);
+            
             _fourCardsLayout.gameObject.SetActive(true);
             firstCard.GetComponent<RectTransform>().SetParent(_fourCardsLayout, false);
             firstCard.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
@@ -104,6 +124,15 @@ namespace BrilliantBingo.Code.Infrastructure.Layout
             fourthCard.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
         }
 
+        public void ClearCards()
+        {
+            foreach (var card in _cardList)
+            {
+                Destroy(card);
+            }
+            _cardList.Clear();
+            
+        }
         #endregion
 
         #endregion

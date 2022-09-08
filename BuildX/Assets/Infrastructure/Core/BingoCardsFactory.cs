@@ -76,6 +76,11 @@ namespace BrilliantBingo.Code.Infrastructure.Core
             }
         }
 
+        public void DestroyAllCards()
+        {
+            CoreGameObjectsLocator.Default.CardsLayoutManager.ClearCards();
+        }
+
         #endregion
 
         #endregion

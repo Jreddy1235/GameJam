@@ -87,6 +87,14 @@ namespace BrilliantBingo.Code.Infrastructure.Collections
                 }
                 return null;
             }
+            
+            public void ResetBingoBallsPool()
+            {
+                foreach (var ball in _bingoBallsPool)
+                {
+                    ball.Disable();
+                }
+            }
 
             #endregion
         }
@@ -153,6 +161,12 @@ namespace BrilliantBingo.Code.Infrastructure.Collections
             EnqueueNewBall(letter, number);
         }
 
+        public void ResetAllBingoBalls()
+        {
+            _bingoBallObjectPool.ResetBingoBallsPool();
+            _ballsQueue.Clear();
+        }
+        
         private void DequeueLastBallIfExists()
         {
             if (_ballsQueue.Count >= _maxBallsInQueue)
