@@ -28,6 +28,10 @@ namespace BrilliantBingo.Code.Infrastructure.Layout.Interfaces
         void LayoutFourCards(GameObject firstCard, GameObject secondCard,
             GameObject thirdCard, GameObject fourthCard);
 
+        void SetVisibilityOfCards(bool flag);
+
+        void ClearCards();
+
         #endregion
     }
 }

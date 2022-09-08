@@ -13,6 +13,9 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 
         private bool _generated;
 
+        private Color _defaultDisabledColor;
+        private Color _defaultNormalColor;
+        private Color _defaultHighlightedColor;
         #endregion
 
         #region Methods
@@ -21,6 +24,10 @@ namespace BrilliantBingo.Code.Infrastructure.Views
         {
             _text = GetComponentInChildren<Text>();
             _button = GetComponent<Button>();
+            var c = _button.colors;
+            _defaultDisabledColor = c.disabledColor;
+            _defaultNormalColor = c.normalColor;
+            _defaultHighlightedColor = c.highlightedColor;
         }
 
         public void SetNumber(int number)
@@ -37,6 +44,17 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             _button.colors = c;
             _text.color = Color.white;
             _generated = true;
+        }
+
+        public void ResetNumber()
+        {
+            var c = _button.colors;
+            c.disabledColor = _defaultDisabledColor;
+            c.normalColor = _defaultNormalColor;
+            c.highlightedColor = _defaultHighlightedColor;
+            _button.colors = c;
+            _text.color = Color.black;
+            _generated = false;
         }
 
         public void Disable()

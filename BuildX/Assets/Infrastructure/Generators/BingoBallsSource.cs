@@ -1,4 +1,5 @@
-﻿using BrilliantBingo.Code.Infrastructure.Events.Args;
+﻿using System;
+using BrilliantBingo.Code.Infrastructure.Events.Args;
 using BrilliantBingo.Code.Infrastructure.Events.Handlers;
 using BrilliantBingo.Code.Infrastructure.Generators.Interfaces;
 using BrilliantBingo.Code.Infrastructure.Models;
@@ -38,8 +39,17 @@ namespace BrilliantBingo.Code.Infrastructure.Generators
         #region Events
 
         public event BingoBallGeneratedEventHandler BingoBallGenerated;
+        public event Action OnAllBingoBallsFinished;
+        public event Action OnAllBingoBallsRestart;
+
         private void OnBingoBallGenerated(BingoBall ball)
         {
+            if (ball == null)
+            {
+                OnAllBingoBallsFinished?.Invoke();
+                Stop();
+                return;
+            }
             var handler = BingoBallGenerated;
             if (handler == null) return;
             handler(this, new BingoBallGeneratedEventArgs(ball));
@@ -52,12 +62,21 @@ namespace BrilliantBingo.Code.Infrastructure.Generators
         public void Begin(float frequency)
         {
             InvokeRepeating("RequestNextBingoBall", 0.1f, frequency);
+            
         }
 
+        public void Restart()
+        {
+            _bingoBallGenerator = new BingoBallGenerator();
+            _enabled = true;
+            gameObject.SetActive(true);
+            OnAllBingoBallsRestart?.Invoke();
+        }
         public void Stop()
         {
             _enabled = false;
             gameObject.SetActive(false);
+            CancelInvoke("RequestNextBingoBall");
         }
 
         #endregion

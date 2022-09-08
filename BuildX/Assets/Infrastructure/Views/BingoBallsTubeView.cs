@@ -51,8 +51,14 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 
             CoreGameObjectsLocator.Default.BingoBallsSource.BingoBallGenerated -= OnBingoBallGenerated;
             CoreGameObjectsLocator.Default.BingoBallsSource.BingoBallGenerated += OnBingoBallGenerated;
+            CoreGameObjectsLocator.Default.BingoBallsSource.OnAllBingoBallsRestart += OnBingoBallRestart;
         }
-
+        
+        private void OnBingoBallRestart()
+        {
+            _bingoBallViewsQueue.ResetAllBingoBalls();
+        }
+        
         private void OnBingoBallGenerated(object sender, BingoBallGeneratedEventArgs e)
         {
             _bingoBallViewsQueue.Enqueue(e.Ball.Letter, e.Ball.Number);
