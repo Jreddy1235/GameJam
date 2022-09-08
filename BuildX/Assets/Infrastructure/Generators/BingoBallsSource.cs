@@ -1,4 +1,5 @@
-﻿using BrilliantBingo.Code.Infrastructure.Events.Args;
+﻿using System;
+using BrilliantBingo.Code.Infrastructure.Events.Args;
 using BrilliantBingo.Code.Infrastructure.Events.Handlers;
 using BrilliantBingo.Code.Infrastructure.Generators.Interfaces;
 using BrilliantBingo.Code.Infrastructure.Models;
@@ -38,8 +39,17 @@ namespace BrilliantBingo.Code.Infrastructure.Generators
         #region Events
 
         public event BingoBallGeneratedEventHandler BingoBallGenerated;
+        public event Action OnAllBingoBallsFinished;
+
         private void OnBingoBallGenerated(BingoBall ball)
         {
+            if (ball == null)
+            {
+                CancelInvoke("RequestNextBingoBall");
+                OnAllBingoBallsFinished.Invoke();
+                Stop();
+                return;
+            }
             var handler = BingoBallGenerated;
             if (handler == null) return;
             handler(this, new BingoBallGeneratedEventArgs(ball));
@@ -52,6 +62,7 @@ namespace BrilliantBingo.Code.Infrastructure.Generators
         public void Begin(float frequency)
         {
             InvokeRepeating("RequestNextBingoBall", 0.1f, frequency);
+            
         }
 
         public void Stop()

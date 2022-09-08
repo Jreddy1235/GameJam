@@ -26,7 +26,8 @@ namespace BrilliantBingo.Code.Infrastructure.Generators
         {
             if (!CanGenerateBalls())
             {
-                throw new Exception("All balls were already generated");
+                //throw new Exception("All balls were already generated");
+                return null;
             }
             var randomLetter = GenerateRandomBingoLetter();
             if (!_numbersGenerator.CanGenerateNumberForLetter(randomLetter))

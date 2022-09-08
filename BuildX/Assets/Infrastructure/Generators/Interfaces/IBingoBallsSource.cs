@@ -1,4 +1,5 @@
-﻿using BrilliantBingo.Code.Infrastructure.Events.Handlers;
+﻿using System;
+using BrilliantBingo.Code.Infrastructure.Events.Handlers;
 
 namespace BrilliantBingo.Code.Infrastructure.Generators.Interfaces
 {
@@ -7,6 +8,7 @@ namespace BrilliantBingo.Code.Infrastructure.Generators.Interfaces
         #region Events
 
         event BingoBallGeneratedEventHandler BingoBallGenerated;
+        event Action OnAllBingoBallsFinished; 
 
         #endregion
 
