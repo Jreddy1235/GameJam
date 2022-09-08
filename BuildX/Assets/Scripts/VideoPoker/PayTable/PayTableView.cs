@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using VideoPoker.PayTable;
 using VideoPoker.Utils;
+using UniRx;
 
 public class PayTableView : MonoBehaviour
 {
@@ -12,18 +15,25 @@ public class PayTableView : MonoBehaviour
     [SerializeField] private TMP_Text txtCurrentBet;
     [SerializeField] private TMP_Text txtBetRange;
     [SerializeField] private GameObject goDealBtn;
+    [SerializeField] private Button btnDeal;
     [SerializeField] private GameObject goDrawBtn;
     [SerializeField] private HandView handView;
 
     private List<PayTableRowView> _payTableRows;
     private PayTableRowView _selectedRow;
 
-    private void OnEnable()
+    private void Start()
     {
         GeneratePayTable();
         goDealBtn.SetActive(true);
         goDrawBtn.SetActive(false);
         SetBetRanges();
+        HUDManager.Instance.TotalChips.Subscribe(SetDealBtn);
+    }
+
+    private void SetDealBtn(int amount)
+    {
+        btnDeal.interactable = amount >= VideoPokerManager.Instance.CurrentBet;
     }
 
     private void GeneratePayTable()
@@ -69,6 +79,7 @@ public class PayTableView : MonoBehaviour
     private void SetBetMultiplier()
     {
         txtCurrentBet.text = VideoPokerManager.Instance.CurrentBet.KiloFormat();
+        SetDealBtn(HUDManager.Instance.TotalChips.Value);
         SetMultiplierSelection();
     }
 
@@ -76,6 +87,7 @@ public class PayTableView : MonoBehaviour
     {
         goDealBtn.SetActive(false);
         goDrawBtn.SetActive(true);
+        HUDManager.Instance.TotalChips.Value -= VideoPokerManager.Instance.CurrentBet;
         handView.Deal();
         if (_selectedRow != null)
             _selectedRow.ToggleSelection(false, VideoPokerManager.Instance.PayTableData.ColorDeselected);
@@ -85,11 +97,12 @@ public class PayTableView : MonoBehaviour
     {
         goDealBtn.SetActive(true);
         goDrawBtn.SetActive(false);
-        var handType = handView.Draw();
+        var (handType,amountWon) = handView.Draw();
 
         if (handType == HandType.None) return;
         _selectedRow = _payTableRows.Find(t => t.HandType == handType);
         _selectedRow.ToggleSelection(true, VideoPokerManager.Instance.PayTableData.ColorSelected);
+        HUDManager.Instance.TotalChips.Value += amountWon;
     }
 
     public void OnBetIncreaseBtnClick()

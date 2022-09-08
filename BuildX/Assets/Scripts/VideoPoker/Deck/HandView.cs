@@ -53,7 +53,7 @@ public class HandView : MonoBehaviour
         VideoPokerManager.Instance.IsInputPaused = false;
     }
 
-    public HandType Draw()
+    public (HandType,int) Draw()
     {
         var cards = _dealingDeck.Build(_onHoldCards.Select(t => t.Index)).GetCards();
         foreach (var item in _allCards)
@@ -73,9 +73,10 @@ public class HandView : MonoBehaviour
         return ShowResults();
     }
 
-    private HandType ShowResults()
+    private (HandType,int) ShowResults()
     {
         var hand = _dealingDeck.GetWinningHand(VideoPokerManager.Instance.PayTableData.GetHandTypes());
+        var betAmountWon = 0;
         if (hand == null)
         {
             goDealOver.SetActive(true);
@@ -85,12 +86,12 @@ public class HandView : MonoBehaviour
             goResults.SetActive(true);
             var payTableRow = VideoPokerManager.Instance.PayTableData.GetPayTableRow(hand.HandType);
             var betIndex = VideoPokerManager.Instance.CurrentBetMultiplier - 1;
-            var betAmountWon = payTableRow.Multipliers[betIndex] * VideoPokerManager.Instance.CurrentBetOption;
+             betAmountWon = payTableRow.Multipliers[betIndex] * VideoPokerManager.Instance.CurrentBetOption;
             txtWinAmount.text = betAmountWon.KiloFormat();
             txtResult.text = payTableRow.Name;
         }
 
-        return hand?.HandType ?? HandType.None;
+        return (hand?.HandType ?? HandType.None,betAmountWon);
     }
 
     public void OnPointerClick(CardView cardView)

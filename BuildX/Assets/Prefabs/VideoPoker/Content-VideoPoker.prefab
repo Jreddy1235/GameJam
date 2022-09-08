@@ -62,6 +62,7 @@ MonoBehaviour:
   txtCurrentBet: {fileID: 4274495537270367325}
   txtBetRange: {fileID: 4286288031721021822}
   goDealBtn: {fileID: 2752381195853361815}
+  btnDeal: {fileID: 6903348797406171400}
   goDrawBtn: {fileID: 5573934937021528279}
   handView: {fileID: 5728176887485340851}
 --- !u!1 &6536558291455657875
@@ -365,6 +366,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4541036110574432099}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6903348797406171400 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6973999324841737835, guid: 7eb01b9070f6a4b8d8e64d49bba5e861,
+    type: 3}
+  m_PrefabInstance: {fileID: 4541036110574432099}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5573934937021528279 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8241472983530215348, guid: 7eb01b9070f6a4b8d8e64d49bba5e861,
