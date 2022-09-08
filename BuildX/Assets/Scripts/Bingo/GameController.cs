@@ -40,10 +40,16 @@ namespace BrilliantBingo.Code.Scripts
         {
             _restartButton.SetActive(false);
             _roundOverText.SetActive(false);
-            CoreGameObjectsLocator.Default.CardsLayoutManager.ClearCards();
             Invoke("ShowDialog", 1f);
         }
 
+        public void Restart()
+        {
+            CoreGameObjectsLocator.Default.CardsLayoutManager.ClearCards();
+            CoreGameObjectsLocator.Default.BingoBallsSource.Restart();
+            CoreGameObjectsLocator.Default.GeneratedNumbersManager.ResetNumbers();
+            Start();
+        }
         private void ShowDialog()
         {
             CoreGameObjectsLocator.Default.DialogManager.ShowSelectCardsCountDialog(OnCountOfCardsSelected);
@@ -58,17 +64,23 @@ namespace BrilliantBingo.Code.Scripts
 
         private void OnAllCardsFinishToPlay(object sender, AllCardsFinishToPlayEventArgs e)
         {
-            _roundOverText.SetActive(true);
             Debug.Log("Game is over. Count of win cards: " + e.WinCardsCount);
-            CoreGameObjectsLocator.Default.BingoBallsSource.Stop();
+            RoundOver();
         }
 
         private void OnAllBingoBallsFinished()
         {
-            Debug.Log("Game is over. Count of win cards: ");
-            //CoreGameObjectsLocator.Default.CardsLayoutManager.SetVisibilityOfCards(false);
+            Debug.Log("Game is over. All Numbers are called");
+            RoundOver();
+        }
+
+        private void RoundOver()
+        {
             _restartButton.SetActive(true);
             _roundOverText.SetActive(true);
+            _readySteadyGoView.Hide();
+            CoreGameObjectsLocator.Default.BingoBallsSource.Stop();
+            CoreGameObjectsLocator.Default.CardsCollection.ClearCollection();
         }
 
         private void OnGo(object sender, EventArgs e)

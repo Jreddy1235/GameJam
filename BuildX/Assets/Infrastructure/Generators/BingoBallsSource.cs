@@ -40,13 +40,13 @@ namespace BrilliantBingo.Code.Infrastructure.Generators
 
         public event BingoBallGeneratedEventHandler BingoBallGenerated;
         public event Action OnAllBingoBallsFinished;
+        public event Action OnAllBingoBallsRestart;
 
         private void OnBingoBallGenerated(BingoBall ball)
         {
             if (ball == null)
             {
-                CancelInvoke("RequestNextBingoBall");
-                OnAllBingoBallsFinished.Invoke();
+                OnAllBingoBallsFinished?.Invoke();
                 Stop();
                 return;
             }
@@ -65,10 +65,18 @@ namespace BrilliantBingo.Code.Infrastructure.Generators
             
         }
 
+        public void Restart()
+        {
+            _bingoBallGenerator = new BingoBallGenerator();
+            _enabled = true;
+            gameObject.SetActive(true);
+            OnAllBingoBallsRestart?.Invoke();
+        }
         public void Stop()
         {
             _enabled = false;
             gameObject.SetActive(false);
+            CancelInvoke("RequestNextBingoBall");
         }
 
         #endregion

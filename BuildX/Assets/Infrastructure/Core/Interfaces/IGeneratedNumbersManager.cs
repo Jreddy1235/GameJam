@@ -3,5 +3,6 @@
     public interface IGeneratedNumbersManager
     {
         bool CheckIfNumberWasGenerated(int number);
+        void ResetNumbers();
     }
 }

@@ -105,6 +105,14 @@ namespace BrilliantBingo.Code.Infrastructure.Core
             return null;
         }
 
+        public void ResetNumbers()
+        {
+            foreach (var numberView in _generatedNumbers)
+            {
+                numberView.ResetNumber();
+            }
+        }
+        
         private void OnBingoBallGenerated(object sender, BingoBallGeneratedEventArgs e)
         {
             var numberView = _generatedNumbers[e.Ball.Number-1];

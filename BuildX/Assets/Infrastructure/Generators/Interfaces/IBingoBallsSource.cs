@@ -9,6 +9,7 @@ namespace BrilliantBingo.Code.Infrastructure.Generators.Interfaces
 
         event BingoBallGeneratedEventHandler BingoBallGenerated;
         event Action OnAllBingoBallsFinished; 
+        event Action OnAllBingoBallsRestart;
 
         #endregion
 
@@ -17,6 +18,8 @@ namespace BrilliantBingo.Code.Infrastructure.Generators.Interfaces
         void Begin(float frequency);
 
         void Stop();
+
+        void Restart();
 
         #endregion
     }
