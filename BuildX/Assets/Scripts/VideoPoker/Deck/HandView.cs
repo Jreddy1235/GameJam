@@ -95,9 +95,10 @@ public class HandView : MonoBehaviour
 
     public void OnPointerClick(CardView cardView)
     {
+        var isMouseDown = IsMouseDown;
         IsMouseDown = true;
         OnPointerEnter(cardView);
-        IsMouseDown = false;
+        IsMouseDown = isMouseDown;
     }
 
     public void OnPointerEnter(CardView cardView)

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CardView : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
+public class CardView : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerDownHandler
 {
     [SerializeField] private HandView handView;
     [SerializeField] private Image imgCard;
@@ -47,6 +47,11 @@ public class CardView : MonoBehaviour, IPointerEnterHandler, IPointerClickHandle
     }
 
     public void OnPointerClick(PointerEventData eventData)
+    {
+        handView.OnPointerClick(this);
+    }
+    
+    public void OnPointerDown(PointerEventData eventData)
     {
         handView.OnPointerClick(this);
     }

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using VideoPoker.PayTable;
 using UnityEngine;
 
@@ -11,9 +10,9 @@ public class VideoPokerManager
     public DealingDeck DealingDeck { get; private set; }
     public int CurrentBetOption => PayTableData.GetBetOptions()[CurrentBetRangeIndex];
     public int CurrentBet => CurrentBetMultiplier * CurrentBetOption;
-    public int CurrentBetMultiplier { get; set; }
-    public int CurrentBetRangeIndex { get; set; }
-    public bool IsInputPaused { get; set; }
+    public int CurrentBetMultiplier { get; private set; }
+    private int CurrentBetRangeIndex { get; set; }
+    public bool IsInputPaused { get; set; } = true;
     public PayTableData PayTableData { get; private set; }
     public DeckSprites DeckSprites { get; private set; }
 
@@ -29,7 +28,7 @@ public class VideoPokerManager
         return instance;
     }
 
-    public void Initialize()
+    private void Initialize()
     {
         CurrentBetRangeIndex = 0;
         CurrentBetMultiplier = PayTableData.GetBetMultiplierRange(0).Item1;
