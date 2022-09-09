@@ -8,6 +8,7 @@ namespace BrilliantBingo.Code.Infrastructure.Layout
     {
         #region Fields
 
+        [SerializeField] private GameObject _rightArrowObj;
         [SerializeField]
         private RectTransform _singleCardLayout;
 
@@ -33,6 +34,7 @@ namespace BrilliantBingo.Code.Infrastructure.Layout
 
         public void SetVisibilityOfCards(bool flag)
         {
+            _rightArrowObj.SetActive(flag);
             _singleCardLayout.gameObject.SetActive(flag);
             _twoCardsLayout.gameObject.SetActive(flag);
             _threeCardsLayout.gameObject.SetActive(flag);
@@ -72,6 +74,8 @@ namespace BrilliantBingo.Code.Infrastructure.Layout
         public void LayoutOneCard(GameObject firstCard)
         {
             _cardList.Add(firstCard);
+            
+            _rightArrowObj.SetActive(false);
             _singleCardLayout.gameObject.SetActive(true);
 
             firstCard.GetComponent<RectTransform>().SetParent(_singleCardLayout, false);
@@ -82,6 +86,7 @@ namespace BrilliantBingo.Code.Infrastructure.Layout
         {
             _cardList.Add(firstCard);
             _cardList.Add(secondCard);
+            _rightArrowObj.SetActive(false);
             _twoCardsLayout.gameObject.SetActive(true);
             firstCard.GetComponent<RectTransform>().SetParent(_twoCardsLayout, false);
             firstCard.GetComponent<RectTransform>().localScale = new Vector3(1,1,1);
@@ -96,7 +101,9 @@ namespace BrilliantBingo.Code.Infrastructure.Layout
             _cardList.Add(secondCard);
             _cardList.Add(thirdCard);
             
+            _rightArrowObj.SetActive(true);
             _threeCardsLayout.gameObject.SetActive(true);
+            
             firstCard.GetComponent<RectTransform>().SetParent(_threeCardsLayout, false);
             firstCard.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
             secondCard.GetComponent<RectTransform>().SetParent(_threeCardsLayout, false);
@@ -113,7 +120,9 @@ namespace BrilliantBingo.Code.Infrastructure.Layout
             _cardList.Add(thirdCard);
             _cardList.Add(fourthCard);
             
+            _rightArrowObj.SetActive(true);
             _fourCardsLayout.gameObject.SetActive(true);
+            
             firstCard.GetComponent<RectTransform>().SetParent(_fourCardsLayout, false);
             firstCard.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
             secondCard.GetComponent<RectTransform>().SetParent(_fourCardsLayout, false);

@@ -11,118 +11,89 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 {
     public class BingoCardView : MonoBehaviour, IBingoCardViewController
     {
+        [SerializeField] private Text _cardNoText;
+
         #region Fields
 
-        [SerializeField]
-        private GameObject _numbersPanel;
+        [SerializeField] private GameObject _numbersPanel;
 
-        [SerializeField]
-        private GameObject _badBingoPanel;
+        [SerializeField] private GameObject _badBingoPanel;
 
-        [SerializeField]
-        private GameObject _winBingoPanel;
+        [SerializeField] private GameObject _winBingoPanel;
 
-        [SerializeField]
-        private Button _bingoButton;
+        [SerializeField] private Button _bingoButton;
 
-        [SerializeField]
-        private AudioSource _badBingoAudioSource;
+        [SerializeField] private AudioSource _badBingoAudioSource;
 
-        [SerializeField]
-        private AudioSource _winBingoAudioSource;
+        [SerializeField] private AudioSource _winBingoAudioSource;
 
         #region Column_1
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_11;
+        [SerializeField] private CardNumberView _cardNumberView_11;
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_21;
+        [SerializeField] private CardNumberView _cardNumberView_21;
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_31;
+        [SerializeField] private CardNumberView _cardNumberView_31;
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_41;
+        [SerializeField] private CardNumberView _cardNumberView_41;
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_51;
+        [SerializeField] private CardNumberView _cardNumberView_51;
 
         #endregion
 
         #region Column_2
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_12;
+        [SerializeField] private CardNumberView _cardNumberView_12;
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_22;
+        [SerializeField] private CardNumberView _cardNumberView_22;
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_32;
+        [SerializeField] private CardNumberView _cardNumberView_32;
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_42;
+        [SerializeField] private CardNumberView _cardNumberView_42;
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_52;
+        [SerializeField] private CardNumberView _cardNumberView_52;
 
         #endregion
 
         #region Column_3
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_13;
+        [SerializeField] private CardNumberView _cardNumberView_13;
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_23;
+        [SerializeField] private CardNumberView _cardNumberView_23;
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_33;
+        [SerializeField] private CardNumberView _cardNumberView_33;
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_43;
+        [SerializeField] private CardNumberView _cardNumberView_43;
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_53;
+        [SerializeField] private CardNumberView _cardNumberView_53;
 
         #endregion
 
         #region Column_4
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_14;
+        [SerializeField] private CardNumberView _cardNumberView_14;
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_24;
+        [SerializeField] private CardNumberView _cardNumberView_24;
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_34;
+        [SerializeField] private CardNumberView _cardNumberView_34;
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_44;
+        [SerializeField] private CardNumberView _cardNumberView_44;
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_54;
+        [SerializeField] private CardNumberView _cardNumberView_54;
 
         #endregion
 
         #region Column_5
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_15;
+        [SerializeField] private CardNumberView _cardNumberView_15;
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_25;
+        [SerializeField] private CardNumberView _cardNumberView_25;
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_35;
+        [SerializeField] private CardNumberView _cardNumberView_35;
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_45;
+        [SerializeField] private CardNumberView _cardNumberView_45;
 
-        [SerializeField]
-        private CardNumberView _cardNumberView_55;
+        [SerializeField] private CardNumberView _cardNumberView_55;
 
         #endregion
 
@@ -150,22 +121,22 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 
             _bingoButton.onClick.AddListener(OnBingoButtonPressed);
 
-            _markedNumbersMap = new [,]
+            _markedNumbersMap = new[,]
             {
-                {UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber},
-                {UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber},
-                {UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber},
-                {UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber},
-                {UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber},
+                { UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber },
+                { UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber },
+                { UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber },
+                { UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber },
+                { UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber },
             };
 
             _cardNumberViewsMap = new[,]
             {
-                {_cardNumberView_11, _cardNumberView_12, _cardNumberView_13, _cardNumberView_14, _cardNumberView_15},
-                {_cardNumberView_21, _cardNumberView_22, _cardNumberView_23, _cardNumberView_24, _cardNumberView_25},
-                {_cardNumberView_31, _cardNumberView_32, _cardNumberView_33, _cardNumberView_34, _cardNumberView_35},
-                {_cardNumberView_41, _cardNumberView_42, _cardNumberView_43, _cardNumberView_44, _cardNumberView_45},
-                {_cardNumberView_51, _cardNumberView_52, _cardNumberView_53, _cardNumberView_54, _cardNumberView_55},
+                { _cardNumberView_11, _cardNumberView_12, _cardNumberView_13, _cardNumberView_14, _cardNumberView_15 },
+                { _cardNumberView_21, _cardNumberView_22, _cardNumberView_23, _cardNumberView_24, _cardNumberView_25 },
+                { _cardNumberView_31, _cardNumberView_32, _cardNumberView_33, _cardNumberView_34, _cardNumberView_35 },
+                { _cardNumberView_41, _cardNumberView_42, _cardNumberView_43, _cardNumberView_44, _cardNumberView_45 },
+                { _cardNumberView_51, _cardNumberView_52, _cardNumberView_53, _cardNumberView_54, _cardNumberView_55 },
             };
 
             _numbersOnCard = RetrieveRandomNumbersForCard();
@@ -290,6 +261,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
                     fullMarkedLines.Add(GetLineFromRow(rowIndex));
                 }
             }
+
             // Check columns
             for (var columnIndex = 0; columnIndex < ColumnsCount; columnIndex++)
             {
@@ -304,6 +276,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             {
                 fullMarkedLines.Add(GetUpLeftToDownRightDiagonal());
             }
+
             if (IsUpRightToDownLeftDiagonalMarked())
             {
                 fullMarkedLines.Add(GetUpRightToDownLeftDiagonal());
@@ -325,6 +298,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
                     break;
                 }
             }
+
             return result;
         }
 
@@ -341,6 +315,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
                     break;
                 }
             }
+
             return result;
         }
 
@@ -354,7 +329,8 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 
         private int[] GetCornerNumbers()
         {
-            return new[] { _markedNumbersMap[0, 0], _markedNumbersMap[4, 4], _markedNumbersMap[0, 4], _markedNumbersMap[4, 0] };
+            return new[]
+                { _markedNumbersMap[0, 0], _markedNumbersMap[4, 4], _markedNumbersMap[0, 4], _markedNumbersMap[4, 0] };
         }
 
         private bool IsUpLeftToDownRightDiagonalMarked()
@@ -368,6 +344,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
                     break;
                 }
             }
+
             return diagonalMarked;
         }
 
@@ -382,6 +359,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
                     break;
                 }
             }
+
             return diagonalMarked;
         }
 
@@ -392,6 +370,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             {
                 diagonal[diagonalIndex] = _markedNumbersMap[diagonalIndex, diagonalIndex];
             }
+
             return diagonal;
         }
 
@@ -402,6 +381,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             {
                 diagonal[diagonalIndex] = _markedNumbersMap[diagonalIndex, diagonalIndex];
             }
+
             return diagonal;
         }
 
@@ -416,6 +396,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
                     break;
                 }
             }
+
             return lineMarked;
         }
 
@@ -430,16 +411,18 @@ namespace BrilliantBingo.Code.Infrastructure.Views
                     break;
                 }
             }
+
             return lineMarked;
         }
 
         private int[] GetLineFromColumn(int columnIndex)
         {
             var line = new int[5];
-            for (var rowIndex=0; rowIndex < RowsCount; rowIndex++)
+            for (var rowIndex = 0; rowIndex < RowsCount; rowIndex++)
             {
                 line[rowIndex] = _markedNumbersMap[rowIndex, columnIndex];
             }
+
             return line;
         }
 
@@ -450,6 +433,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             {
                 line[columnIndex] = _markedNumbersMap[rowIndex, columnIndex];
             }
+
             return line;
         }
 
@@ -460,6 +444,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
         #region Events
 
         public event EventHandler BadBingoStated;
+
         private void OnBadBingoStated()
         {
             var handler = BadBingoStated;
@@ -468,6 +453,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
         }
 
         public event EventHandler WinBingoStated;
+
         private void OnWinBingoStated()
         {
             var handler = WinBingoStated;
@@ -478,6 +464,11 @@ namespace BrilliantBingo.Code.Infrastructure.Views
         #endregion
 
         #region Methods
+
+        public void SetCardNumber(int number)
+        {
+            _cardNoText.text = number.ToString();
+        }
 
         public void EnableCard()
         {

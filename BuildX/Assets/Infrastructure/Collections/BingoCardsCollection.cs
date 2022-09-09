@@ -25,6 +25,7 @@ namespace BrilliantBingo.Code.Infrastructure.Collections
         public void AddCard(IBingoCardViewController cardController)
         {
             SubscribeOnCardEvents(cardController);
+            cardController.SetCardNumber(_bingoCards.Count + 1);
             _bingoCards.Add(cardController);
         }
 
