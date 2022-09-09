@@ -9,6 +9,8 @@ namespace BrilliantBingo.Code.Infrastructure.Layout
         #region Fields
 
         [SerializeField] private GameObject _rightArrowObj;
+        [SerializeField] private GameObject _LeftArrowObj;
+        
         [SerializeField]
         private RectTransform _singleCardLayout;
 
@@ -35,6 +37,7 @@ namespace BrilliantBingo.Code.Infrastructure.Layout
         public void SetVisibilityOfCards(bool flag)
         {
             _rightArrowObj.SetActive(flag);
+            _LeftArrowObj.SetActive(flag);
             _singleCardLayout.gameObject.SetActive(flag);
             _twoCardsLayout.gameObject.SetActive(flag);
             _threeCardsLayout.gameObject.SetActive(flag);
@@ -110,6 +113,8 @@ namespace BrilliantBingo.Code.Infrastructure.Layout
             secondCard.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
             thirdCard.GetComponent<RectTransform>().SetParent(_threeCardsLayout, false);
             thirdCard.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            
+            thirdCard.SetActive(false);
         }
 
         public void LayoutFourCards(GameObject firstCard, GameObject secondCard, 
@@ -131,6 +136,9 @@ namespace BrilliantBingo.Code.Infrastructure.Layout
             thirdCard.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
             fourthCard.GetComponent<RectTransform>().SetParent(_fourCardsLayout, false);
             fourthCard.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            
+            thirdCard.SetActive(false);
+            fourthCard.SetActive(false);
         }
 
         public void ClearCards()
@@ -142,6 +150,34 @@ namespace BrilliantBingo.Code.Infrastructure.Layout
             _cardList.Clear();
             
         }
+
+        public void OnRightArrowClick()
+        {
+            _rightArrowObj.SetActive(false);
+            _LeftArrowObj.SetActive(true);
+            SetArrowVisibility(false);
+        }
+        
+        public void OnLeftArrowClick()
+        {
+            _rightArrowObj.SetActive(true);
+            _LeftArrowObj.SetActive(false);
+            SetArrowVisibility(true);
+        }
+
+        private void SetArrowVisibility(bool flag)
+        {
+            if (_cardList.Count > 2 || _cardList.Count > 3)
+            {
+                _cardList[0].SetActive(flag);
+                _cardList[1].SetActive(flag);
+                _cardList[2].SetActive(!flag);
+                
+                if(_cardList.Count > 3)
+                    _cardList[3].SetActive(!flag);
+            }
+        }
+        
         #endregion
 
         #endregion
