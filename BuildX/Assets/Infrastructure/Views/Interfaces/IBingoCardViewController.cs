@@ -26,6 +26,8 @@ namespace BrilliantBingo.Code.Infrastructure.Views.Interfaces
 
         void EnableCard();
 
+        void SetCardNumber(int number);
+
         #endregion
     }
 }
