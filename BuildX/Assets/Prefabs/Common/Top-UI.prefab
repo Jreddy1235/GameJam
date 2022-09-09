@@ -165,7 +165,7 @@ RectTransform:
   m_LocalScale: {x: 1.0000379, y: 1.0000379, z: 1.0000379}
   m_Children: []
   m_Father: {fileID: 1192717119617149452}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.9154588, y: 0.2692305}
   m_AnchorMax: {x: 1.0547187, y: 0.730769}
@@ -254,7 +254,7 @@ RectTransform:
   m_LocalScale: {x: 1.0000379, y: 1.0000379, z: 1.0000379}
   m_Children: []
   m_Father: {fileID: 1192717119617149452}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.30174014, y: -0.0000003159046}
   m_AnchorMax: {x: 0.9084244, y: 1.0000057}
@@ -368,7 +368,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1192717119617149452}
   m_Layer: 5
-  m_Name: Item-Coins
+  m_Name: Item-Tickets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -386,9 +386,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1192717119785334278}
-  - {fileID: 1192717120830210801}
   - {fileID: 1192717119245400180}
   - {fileID: 1192717119089785509}
+  - {fileID: 1192717120830210801}
   m_Father: {fileID: 8721815270891249262}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 1192717119785334272}
   - component: {fileID: 1192717119785334273}
   m_Layer: 5
-  m_Name: Btn-Coins
+  m_Name: Btn-Tickets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -515,8 +515,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OnAddCoinsBtnClick
+      - m_Target: {fileID: 8489669602162633518}
+        m_MethodName: OnAddTicketsBtnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -644,7 +644,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8489669602162633518}
         m_MethodName: OnAddChipsBtnClick
         m_Mode: 1
         m_Arguments:
@@ -872,13 +872,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1192717119617149452}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -0.012476538, y: -0.0000028170073}
-  m_AnchorMax: {x: 0.28925332, y: 0.9999972}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: -0.012476538, y: -0.0000028170073}
+  m_AnchoredPosition: {x: 0, y: -2.8499146}
+  m_SizeDelta: {x: 76, y: 80}
+  m_Pivot: {x: 0, y: 0.00000024586916}
 --- !u!222 &1192717120830210803
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -906,7 +906,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d72d5f8306b18e94c819c4e41462a445, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec83dbd33db5d4bf583290118c31c465, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1015,6 +1015,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8721815270891249262}
+  - component: {fileID: 8489669602162633518}
   m_Layer: 5
   m_Name: Top-UI
   m_TagString: Untagged
@@ -1044,3 +1045,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8489669602162633518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8345053611090291784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de6f61754754388869e4d5ff31f7695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  txtChips: {fileID: 1192717119075420089}
+  txtTickets: {fileID: 1192717119245400183}
+  defaultChipsAmount: 1000
+  addChipsAmount: 500
+  defaultTicketsAmount: 10
+  addTicketsAmount: 5
