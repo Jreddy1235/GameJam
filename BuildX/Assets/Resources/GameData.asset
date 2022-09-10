@@ -20,3 +20,4 @@ MonoBehaviour:
   autoHideGambleResultsDuration: 1
   gambleRewardMultiplier: 1
   bingoHeadersDelay: 0.6
+  wrongDaubDisappearTime: 0.6

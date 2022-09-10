@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pressedColor: {r: 0.19215688, g: 0.47450984, b: 1, a: 1}
+  _text: {fileID: 9047318813332406183}
 --- !u!1 &8490239489280471137
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using BrilliantBingo.Code.Infrastructure.Core;
 using BrilliantBingo.Code.Infrastructure.Events.Args;
 using BrilliantBingo.Code.Infrastructure.Events.Handlers;
 using BrilliantBingo.Code.Infrastructure.Models;
@@ -11,10 +12,13 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 {
     public class CardNumberView : MonoBehaviour
     {
-        [SerializeField]private Color _pressedColor;
+        [SerializeField] private Color _pressedColor;
+        [SerializeField] private TMP_Text _text;
+
         #region Events
 
         public event CardNumberMarkedEventHandler Marked;
+
         private void OnMarked()
         {
             var handler = Marked;
@@ -23,6 +27,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
         }
 
         public event CardNumberUnmarkedEventHandler Unmarked;
+
         private void OnUnmarked()
         {
             var handler = Unmarked;
@@ -39,20 +44,14 @@ namespace BrilliantBingo.Code.Infrastructure.Views
         private int _verticalIndex;
 
         private int _number;
+        private int _leanTweenId1 = -1;
+        private int _leanTweenId2 = -1;
 
         private bool _initialized;
-
-        private TMP_Text _text;
-
-        private Color _defaultTextColot;
-
-        private Color _highlightedTextColor;
-
+        
         private Button _button;
 
         private bool _marked;
-
-        private Color _normalColor;
 
         #endregion
 
@@ -64,14 +63,11 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             {
                 throw new InvalidOperationException("CardNumberView already initialzied");
             }
+
             _columnLetter = columnLetter;
             _verticalIndex = verticalIndex;
             _number = number;
 
-
-            _defaultTextColot = GetText().color;
-            _highlightedTextColor = Color.white;
-            _normalColor = GetButton().colors.normalColor;
             GetButton().onClick.AddListener(Clicked);
             GetText().text = _number.ToString(CultureInfo.InvariantCulture);
 
@@ -92,24 +88,37 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 
         private void Mark()
         {
-            var c = _button.colors;
-            c.normalColor = c.pressedColor;
-            c.highlightedColor = c.pressedColor;
-            _button.colors = c;
             _button.targetGraphic.color = _pressedColor;
-            _text.color = _highlightedTextColor;
-            _marked = true;
-            OnMarked();
+            _text.color = Color.white;
+
+
+            var gnm = CoreGameObjectsLocator.Default.GeneratedNumbersManager;
+            var isValid = gnm.CheckIfNumberWasGenerated(_number);
+
+            if (isValid)
+            {
+                _marked = true;
+                OnMarked();
+            }
+            else
+            {
+                if (_leanTweenId1 > -1) LeanTween.cancel(gameObject, _leanTweenId1);
+                if (_leanTweenId2 > -1) LeanTween.cancel(_text.gameObject, _leanTweenId2);
+
+                _leanTweenId1 = LeanTween.color(transform as RectTransform, Color.white,
+                    GameData.Instance.WrongDaubDisappearTime).id;
+                _leanTweenId2 = LeanTween.colorText(_text.transform as RectTransform, _pressedColor,
+                    GameData.Instance.WrongDaubDisappearTime).id;
+            }
         }
 
         private void Unmark()
         {
-            var c = _button.colors;
-            c.normalColor = _normalColor;
-            c.highlightedColor = _normalColor;
-            _button.colors = c;
+            if (_marked) return;
+
             _button.targetGraphic.color = Color.white;
-            _text.color = _defaultTextColot;
+            _text.color = _pressedColor;
+
             _marked = false;
             OnUnmarked();
         }
@@ -130,6 +139,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             {
                 _text = GetComponentInChildren<TMP_Text>();
             }
+
             return _text;
         }
 
@@ -139,6 +149,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             {
                 _button = GetComponent<Button>();
             }
+
             return _button;
         }
 
