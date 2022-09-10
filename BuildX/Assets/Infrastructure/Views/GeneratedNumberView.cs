@@ -10,13 +10,10 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 
         private TMP_Text _text;
 
-        private Button _button;
+        private Image _button;
 
         private bool _generated;
-
-        private Color _defaultDisabledColor;
-        private Color _defaultNormalColor;
-        private Color _defaultHighlightedColor;
+        private Color _color;
         #endregion
 
         #region Methods
@@ -24,11 +21,8 @@ namespace BrilliantBingo.Code.Infrastructure.Views
         public void Awake()
         {
             _text = GetComponentInChildren<TMP_Text>();
-            _button = GetComponent<Button>();
-            var c = _button.colors;
-            _defaultDisabledColor = c.disabledColor;
-            _defaultNormalColor = c.normalColor;
-            _defaultHighlightedColor = c.highlightedColor;
+            _button = GetComponent<Image>();
+            _color = _button.color;
         }
 
         public void SetNumber(int number)
@@ -37,30 +31,17 @@ namespace BrilliantBingo.Code.Infrastructure.Views
         }
 
         public void MarkAsGenerated()
-        {   
-            var c = _button.colors;
-            c.disabledColor = Color.red;
-            c.normalColor = Color.red;
-            c.highlightedColor = Color.red;
-            _button.colors = c;
-            _text.color = Color.white;
+        {
+            _color.a = 1;
+            _button.color = _color;
             _generated = true;
         }
 
         public void ResetNumber()
         {
-            var c = _button.colors;
-            c.disabledColor = _defaultDisabledColor;
-            c.normalColor = _defaultNormalColor;
-            c.highlightedColor = _defaultHighlightedColor;
-            _button.colors = c;
-            _text.color = Color.black;
+            _color.a = 0;
+            _button.color = _color;
             _generated = false;
-        }
-
-        public void Disable()
-        {
-            _button.interactable = false;
         }
 
         #endregion

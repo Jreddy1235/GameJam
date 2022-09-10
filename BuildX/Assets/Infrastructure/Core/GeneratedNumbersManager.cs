@@ -67,7 +67,6 @@ namespace BrilliantBingo.Code.Infrastructure.Core
                 }
                 var numberView = InstantiateNumber(parent);
                 numberView.SetNumber(i);
-                numberView.Disable();
                 _generatedNumbers.Add(numberView);
             }
         }
@@ -116,7 +115,7 @@ namespace BrilliantBingo.Code.Infrastructure.Core
                 numberView.ResetNumber();
             }
         }
-        
+
         private void OnBingoBallGenerated(object sender, BingoBallGeneratedEventArgs e)
         {
             var numberView = _generatedNumbers[e.Ball.Number-1];

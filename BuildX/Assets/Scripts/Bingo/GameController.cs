@@ -15,7 +15,7 @@ namespace BrilliantBingo.Code.Scripts
 
         [SerializeField]
         private ReadySteadyGoView _readySteadyGoView;
-
+        [SerializeField] private GameObject _generatedNumbersPanel;
         [SerializeField] private GameObject _roundOverText;
         [SerializeField] private GameObject _restartButton;
 
@@ -27,6 +27,7 @@ namespace BrilliantBingo.Code.Scripts
         {
             _roundOverText.SetActive(false);
             _restartButton.SetActive(false);
+            _generatedNumbersPanel.SetActive(false);
             _readySteadyGoView.Hide();
             _readySteadyGoView.Go += OnGo;
 
@@ -59,6 +60,7 @@ namespace BrilliantBingo.Code.Scripts
         {
             CoreGameObjectsLocator.Default.CardsFactory.CreateAndLayout(layout);
             CoreGameObjectsLocator.Default.CardsCollection.DisableAllCards();
+            _generatedNumbersPanel.SetActive(true);
             _readySteadyGoView.Show();
         }
 

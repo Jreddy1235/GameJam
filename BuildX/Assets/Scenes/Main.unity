@@ -652,6 +652,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &621290135 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3144306417322291735, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
+    type: 3}
+  m_PrefabInstance: {fileID: 3144306416296309306}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &653139041
 GameObject:
   m_ObjectHideFlags: 0
@@ -1838,5 +1844,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9111912354461884573, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
+        type: 3}
+      propertyPath: _generatedNumbersPanel
+      value: 
+      objectReference: {fileID: 621290135}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcc7e296b6ac7471fbbf11ed867a7a15, type: 3}
