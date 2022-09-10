@@ -1,6 +1,7 @@
 ﻿using BrilliantBingo.Code.Infrastructure.Collections;
 using BrilliantBingo.Code.Infrastructure.Core;
 using BrilliantBingo.Code.Infrastructure.Events.Args;
+using BrilliantBingo.Code.Scripts;
 using UnityEngine;
 
 namespace BrilliantBingo.Code.Infrastructure.Views
@@ -30,6 +31,9 @@ namespace BrilliantBingo.Code.Infrastructure.Views
         [SerializeField]
         private RectTransform _bingoBallAppearancePosition;
 
+        [SerializeField]
+        private GameObject goBase;
+        
         private BingoBallViewsQueue _bingoBallViewsQueue;
 
         private const int PooledBallsCount = 7;
@@ -52,6 +56,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             CoreGameObjectsLocator.Default.BingoBallsSource.BingoBallGenerated -= OnBingoBallGenerated;
             CoreGameObjectsLocator.Default.BingoBallsSource.BingoBallGenerated += OnBingoBallGenerated;
             CoreGameObjectsLocator.Default.BingoBallsSource.OnAllBingoBallsRestart += OnBingoBallRestart;
+            GameController.OnCardsCountSelected += () => goBase.SetActive(true);
         }
         
         private void OnBingoBallRestart()

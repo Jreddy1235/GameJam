@@ -11,6 +11,7 @@ namespace BrilliantBingo.Code.Scripts
     {
         #region Fields
 
+        public static event Action OnCardsCountSelected;
         private float _ballGenerationFrequency = 3f;
 
         [SerializeField]
@@ -62,6 +63,7 @@ namespace BrilliantBingo.Code.Scripts
             CoreGameObjectsLocator.Default.CardsCollection.DisableAllCards();
             _generatedNumbersPanel.SetActive(true);
             _readySteadyGoView.Show();
+            OnCardsCountSelected?.Invoke();
         }
 
         private void OnAllCardsFinishToPlay(object sender, AllCardsFinishToPlayEventArgs e)
