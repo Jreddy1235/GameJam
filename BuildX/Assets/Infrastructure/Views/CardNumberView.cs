@@ -3,6 +3,7 @@ using System.Globalization;
 using BrilliantBingo.Code.Infrastructure.Events.Args;
 using BrilliantBingo.Code.Infrastructure.Events.Handlers;
 using BrilliantBingo.Code.Infrastructure.Models;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,7 +41,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 
         private bool _initialized;
 
-        private Text _text;
+        private TMP_Text _text;
 
         private Color _defaultTextColot;
 
@@ -120,11 +121,11 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             _button.interactable = false;
         }
 
-        private Text GetText()
+        private TMP_Text GetText()
         {
             if (_text == null)
             {
-                _text = GetComponentInChildren<Text>();
+                _text = GetComponentInChildren<TMP_Text>();
             }
             return _text;
         }

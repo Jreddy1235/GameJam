@@ -202,8 +202,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 55970278}
   m_HandleRect: {fileID: 55970277}
   m_Direction: 2
-  m_Value: 0.000000107177954
-  m_Size: 0.49948496
+  m_Value: 1
+  m_Size: 0.4994849
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1274,7 +1274,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 2277.8994}
+  m_AnchoredPosition: {x: 0, y: -0.00024414062}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1775388821
@@ -1578,11 +1578,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Content-Bingo
       objectReference: {fileID: 0}
-    - target: {fileID: 3001829091757610310, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3001829091757610311, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1808,21 +1803,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3144306416156214283, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3144306416669361970, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3144306416669361970, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3144306416800570313, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1853,7 +1833,5 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3144306416617647361, guid: bcc7e296b6ac7471fbbf11ed867a7a15, type: 3}
-    - {fileID: 3144306417322291733, guid: bcc7e296b6ac7471fbbf11ed867a7a15, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcc7e296b6ac7471fbbf11ed867a7a15, type: 3}
