@@ -233,6 +233,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             var rowIndex = e.NumberVerticalIndex;
             var columnIndex = BingoLetterCaster.BingoLetterToInt(e.NumberColumnLetter);
             _markedNumbersMap[rowIndex, columnIndex] = e.Number;
+            CheckForAutoBingo();
         }
 
         private void OnNumberUnmarked(object sender, CardNumberUnmarkedEventArgs e)
@@ -272,6 +273,20 @@ namespace BrilliantBingo.Code.Infrastructure.Views
                 PlayBadBingoSound();
                 OnBadBingoStated();
             }
+        }
+        
+        private void CheckForAutoBingo()
+        {
+            var bingo = CheckForBingo();
+            if (!bingo) return;
+            
+            IsWinBingo = true;
+            Finished = true;
+            DisableCard();
+                
+            TurnToCardWinBingoView();
+            PlayWinBingoSound();
+            OnWinBingoStated();
         }
 
         private void PlayBadBingoSound()

@@ -8,9 +8,9 @@ public class HUDView : MonoBehaviour
     [SerializeField] private TMP_Text txtChips;
     [SerializeField] private TMP_Text txtTickets;
 
-
     private void Awake()
     {
+        Camera.main.aspect = 0.5625f;
         HUDManager.Instance.TotalChips = new ReactiveProperty<int>(GameData.Instance.DefaultChipsAmount);
         HUDManager.Instance.TotalChips.Subscribe(x => UpdateChipsHUD());
 
