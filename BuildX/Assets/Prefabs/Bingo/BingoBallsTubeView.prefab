@@ -45,9 +45,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4075306590099150442}
   - component: {fileID: 4075306590099150445}
-  - component: {fileID: 4075306590099150444}
   - component: {fileID: 4075306590099150443}
-  - component: {fileID: 4075306590099150440}
   m_Layer: 5
   m_Name: BingoBallsTubeView
   m_TagString: Untagged
@@ -67,6 +65,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4075306589117650331}
+  - {fileID: 6777533175120788366}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -83,35 +82,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4075306590099150447}
   m_CullTransparentMesh: 0
---- !u!114 &4075306590099150444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4075306590099150447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5c0d686d6d889d8499dc3beeb9f9cd57, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &4075306590099150443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,29 +95,83 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bingoBallPrefab: {fileID: 108266, guid: dd7d03b8103a8c044b98a8bf7e01c204, type: 3}
-  _bBallSprite: {fileID: 21300000, guid: 949e6ac00b0d3ea4190cf03ad7f6fbf9, type: 3}
-  _iBallSprite: {fileID: 21300000, guid: 7ee9f57477c1db54283b6d06bbcd64be, type: 3}
-  _nBallSprite: {fileID: 21300000, guid: 48642fedf6e113a40b37f84057363368, type: 3}
-  _gBallSprite: {fileID: 21300000, guid: 024b77e0fcc9b3a448981d2b0bdaa68b, type: 3}
-  _oBallSprite: {fileID: 21300000, guid: 504580a53c79c78418bd4b26241bda8a, type: 3}
+  _bBallSprite: {fileID: 21300000, guid: d9a88a68d1b9c0a4c8a91445194b4392, type: 3}
+  _iBallSprite: {fileID: 21300000, guid: 3eaf92df31a6d3943aeec2d41e10ccd3, type: 3}
+  _nBallSprite: {fileID: 21300000, guid: 8942fbfc09c5e964e8dc3d87cc173bdb, type: 3}
+  _gBallSprite: {fileID: 21300000, guid: 262cbee72044fdf4aadd2994bfa3c130, type: 3}
+  _oBallSprite: {fileID: 21300000, guid: b529d60186676624082d87ba52af86eb, type: 3}
   _bingoBallAppearancePosition: {fileID: 4075306589117650331}
---- !u!114 &4075306590099150440
+--- !u!1 &7893146543996627889
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6777533175120788366}
+  - component: {fileID: 3566694026118159404}
+  - component: {fileID: 8824352934367482230}
+  m_Layer: 5
+  m_Name: Img-Base
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6777533175120788366
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7893146543996627889}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.9999405, y: 0.9999405, z: 0.9999405}
+  m_Children: []
+  m_Father: {fileID: 4075306590099150442}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 94.29997, y: -0.00009918213}
+  m_SizeDelta: {x: 617.6864, y: 116.999756}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &3566694026118159404
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7893146543996627889}
+  m_CullTransparentMesh: 0
+--- !u!114 &8824352934367482230
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4075306590099150447}
+  m_GameObject: {fileID: 7893146543996627889}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreLayout: 0
-  m_MinWidth: 429
-  m_MinHeight: 117
-  m_PreferredWidth: 429
-  m_PreferredHeight: 117
-  m_FlexibleWidth: -1
-  m_FlexibleHeight: -1
-  m_LayoutPriority: 1
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 6d18494f164cfaf4db6d62698bc515ef, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1

@@ -202,8 +202,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 55970278}
   m_HandleRect: {fileID: 55970277}
   m_Direction: 2
-  m_Value: 0.00000010723959
-  m_Size: 0.49977267
+  m_Value: 1
+  m_Size: 0.4997727
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -516,12 +516,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 271174955}
   m_CullTransparentMesh: 0
---- !u!1 &376069887 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7967606203998784179, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
-    type: 3}
-  m_PrefabInstance: {fileID: 3144306416296309306}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &394865745
 GameObject:
   m_ObjectHideFlags: 0
@@ -1280,7 +1274,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 2276.5898}
+  m_AnchoredPosition: {x: 0, y: 0.00024414062}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1775388821
@@ -1809,6 +1803,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3144306416627805230, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3144306416800570313, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1839,29 +1838,9 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3144306417322291720, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
-        type: 3}
-      propertyPath: _baseImages
-      value: 
-      objectReference: {fileID: 376069887}
     - target: {fileID: 3144306417322291732, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7967606203998784179, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7986196120627840889, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8028418289225515936, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
