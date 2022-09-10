@@ -23,12 +23,11 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 
         public void Hide()
         {
-            gameObject.SetActive(false);
         }
 
         public void Show()
         {
-            gameObject.SetActive(true);
+            OnGo();
         }
 
         #endregion
