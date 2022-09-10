@@ -29,6 +29,9 @@ namespace BrilliantBingo.Code.Infrastructure.Core
         [SerializeField]
         private GameObject _generatedNumberPrefab;
 
+        [SerializeField]
+        private GameObject _baseImages;
+        
         private IList<GeneratedNumberView> _generatedNumbers;
 
         #endregion
@@ -54,6 +57,7 @@ namespace BrilliantBingo.Code.Infrastructure.Core
             GenerateNumbers();
             CoreGameObjectsLocator.Default.BingoBallsSource.BingoBallGenerated -= OnBingoBallGenerated;
             CoreGameObjectsLocator.Default.BingoBallsSource.BingoBallGenerated += OnBingoBallGenerated;
+            _baseImages.SetActive(true);
         }
 
         private void GenerateNumbers()

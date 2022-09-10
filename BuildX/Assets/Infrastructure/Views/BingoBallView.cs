@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using BrilliantBingo.Code.Infrastructure.Models;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +15,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
         private Text _letterText;
 
         [SerializeField]
-        private Text _numberText;
+        private TMP_Text _numberText;
 
         private Image _ballImage;
 
