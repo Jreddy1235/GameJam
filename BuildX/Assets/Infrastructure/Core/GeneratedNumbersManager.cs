@@ -74,9 +74,13 @@ namespace BrilliantBingo.Code.Infrastructure.Core
 
         private GeneratedNumberView InstantiateNumber(RectTransform parent)
         {
-            var go = (GameObject)Instantiate(_generatedNumberPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            go.GetComponent<RectTransform>().SetParent(parent);
-            go.GetComponent<RectTransform>().localScale = new Vector3(1,1,1);
+            var go = Instantiate(_generatedNumberPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            var rectTransform = go.GetComponent<RectTransform>();
+            rectTransform.SetParent(parent);
+            rectTransform.localScale = new Vector3(1,1,1);
+            var position = rectTransform.localPosition;
+            position.z = 0;
+            rectTransform.localPosition = position;
             return go.GetComponent<GeneratedNumberView>();
         }
 

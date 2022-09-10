@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace BrilliantBingo.Code.Infrastructure.Views
@@ -7,7 +8,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
     {
         #region Fields
 
-        private Text _text;
+        private TMP_Text _text;
 
         private Button _button;
 
@@ -22,7 +23,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 
         public void Awake()
         {
-            _text = GetComponentInChildren<Text>();
+            _text = GetComponentInChildren<TMP_Text>();
             _button = GetComponent<Button>();
             var c = _button.colors;
             _defaultDisabledColor = c.disabledColor;
