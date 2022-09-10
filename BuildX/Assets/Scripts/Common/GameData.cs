@@ -14,6 +14,7 @@ public class GameData : ScriptableObject
     [SerializeField] private int gambleCost;
     [SerializeField] private float autoHideGambleResultsDuration;
     [SerializeField] private int gambleRewardMultiplier;
+    [SerializeField] private float bingoHeadersDelay;
 
     public int DefaultChipsAmount => defaultChipsAmount;
     public int AddChipsAmount => addChipsAmount;
@@ -23,4 +24,6 @@ public class GameData : ScriptableObject
     public int GambleRewardMultiplier => gambleRewardMultiplier;
 
     public int GambleCost => gambleCost;
+
+    public float BingoHeadersDelay => bingoHeadersDelay;
 }

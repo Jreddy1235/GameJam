@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using BrilliantBingo.Code.Infrastructure.Core;
 using BrilliantBingo.Code.Infrastructure.Events.Args;
 using BrilliantBingo.Code.Infrastructure.Generators;
+using BrilliantBingo.Code.Infrastructure.Models;
 using BrilliantBingo.Code.Infrastructure.Views.Interfaces;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,6 +28,12 @@ namespace BrilliantBingo.Code.Infrastructure.Views
         [SerializeField] private AudioSource _badBingoAudioSource;
 
         [SerializeField] private AudioSource _winBingoAudioSource;
+
+        [SerializeField] private GameObject _bActivate;
+        [SerializeField] private GameObject _iActivate;
+        [SerializeField] private GameObject _nActivate;
+        [SerializeField] private GameObject _gActivate;
+        [SerializeField] private GameObject _oActivate;
 
         #region Column_1
 
@@ -123,26 +131,66 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 
             _markedNumbersMap = new[,]
             {
-                { UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber },
-                { UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber },
-                { UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber },
-                { UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber },
-                { UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber },
+                {UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber},
+                {UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber},
+                {UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber},
+                {UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber},
+                {UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber},
             };
 
             _cardNumberViewsMap = new[,]
             {
-                { _cardNumberView_11, _cardNumberView_12, _cardNumberView_13, _cardNumberView_14, _cardNumberView_15 },
-                { _cardNumberView_21, _cardNumberView_22, _cardNumberView_23, _cardNumberView_24, _cardNumberView_25 },
-                { _cardNumberView_31, _cardNumberView_32, _cardNumberView_33, _cardNumberView_34, _cardNumberView_35 },
-                { _cardNumberView_41, _cardNumberView_42, _cardNumberView_43, _cardNumberView_44, _cardNumberView_45 },
-                { _cardNumberView_51, _cardNumberView_52, _cardNumberView_53, _cardNumberView_54, _cardNumberView_55 },
+                {_cardNumberView_11, _cardNumberView_12, _cardNumberView_13, _cardNumberView_14, _cardNumberView_15},
+                {_cardNumberView_21, _cardNumberView_22, _cardNumberView_23, _cardNumberView_24, _cardNumberView_25},
+                {_cardNumberView_31, _cardNumberView_32, _cardNumberView_33, _cardNumberView_34, _cardNumberView_35},
+                {_cardNumberView_41, _cardNumberView_42, _cardNumberView_43, _cardNumberView_44, _cardNumberView_45},
+                {_cardNumberView_51, _cardNumberView_52, _cardNumberView_53, _cardNumberView_54, _cardNumberView_55},
             };
 
             _numbersOnCard = RetrieveRandomNumbersForCard();
             InitializeCardNumbersMap();
+            DisableActivateHeaders();
 
             CoreGameObjectsLocator.Default.CardsCollection.AddCard(this);
+            CoreGameObjectsLocator.Default.BingoBallsSource.BingoBallGenerated -= OnBingoBallGenerated;
+            CoreGameObjectsLocator.Default.BingoBallsSource.BingoBallGenerated += OnBingoBallGenerated;
+        }
+
+        private void OnBingoBallGenerated(object sender, BingoBallGeneratedEventArgs e)
+        {
+            Observable.ReturnUnit()
+                .Delay(TimeSpan.FromSeconds(GameData.Instance.BingoHeadersDelay))
+                .Subscribe(_ =>
+                {
+                    DisableActivateHeaders();
+                    switch (e.Ball.Letter)
+                    {
+                        case BingoLetter.B:
+                            _bActivate.SetActive(true);
+                            break;
+                        case BingoLetter.I:
+                            _iActivate.SetActive(true);
+                            break;
+                        case BingoLetter.N:
+                            _nActivate.SetActive(true);
+                            break;
+                        case BingoLetter.G:
+                            _gActivate.SetActive(true);
+                            break;
+                        case BingoLetter.O:
+                            _oActivate.SetActive(true);
+                            break;
+                    }
+                });
+        }
+
+        private void DisableActivateHeaders()
+        {
+            _bActivate.SetActive(false);
+            _iActivate.SetActive(false);
+            _nActivate.SetActive(false);
+            _gActivate.SetActive(false);
+            _oActivate.SetActive(false);
         }
 
         public void DisableCardNumbersInput()
@@ -330,7 +378,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
         private int[] GetCornerNumbers()
         {
             return new[]
-                { _markedNumbersMap[0, 0], _markedNumbersMap[4, 4], _markedNumbersMap[0, 4], _markedNumbersMap[4, 0] };
+                {_markedNumbersMap[0, 0], _markedNumbersMap[4, 4], _markedNumbersMap[0, 4], _markedNumbersMap[4, 0]};
         }
 
         private bool IsUpLeftToDownRightDiagonalMarked()

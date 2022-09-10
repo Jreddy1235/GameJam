@@ -19,3 +19,4 @@ MonoBehaviour:
   gambleCost: 500
   autoHideGambleResultsDuration: 1
   gambleRewardMultiplier: 1
+  bingoHeadersDelay: 0.6
