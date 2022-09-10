@@ -11,6 +11,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 {
     public class CardNumberView : MonoBehaviour
     {
+        [SerializeField]private Color _pressedColor;
         #region Events
 
         public event CardNumberMarkedEventHandler Marked;
@@ -95,6 +96,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             c.normalColor = c.pressedColor;
             c.highlightedColor = c.pressedColor;
             _button.colors = c;
+            _button.targetGraphic.color = _pressedColor;
             _text.color = _highlightedTextColor;
             _marked = true;
             OnMarked();
@@ -106,6 +108,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             c.normalColor = _normalColor;
             c.highlightedColor = _normalColor;
             _button.colors = c;
+            _button.targetGraphic.color = Color.white;
             _text.color = _defaultTextColot;
             _marked = false;
             OnUnmarked();
