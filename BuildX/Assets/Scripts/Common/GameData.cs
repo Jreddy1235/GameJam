@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Main/Game Data", fileName = "GameData")]
@@ -17,6 +18,7 @@ public class GameData : ScriptableObject
     [SerializeField] private float bingoHeadersDelay;
     [SerializeField] private float wrongDaubDisappearTime;
     [SerializeField] private float restartAgainDuration;
+    [SerializeField] private List<AudioClip> numbersAudio;
 
     public int DefaultChipsAmount => defaultChipsAmount;
     public int AddChipsAmount => addChipsAmount;
@@ -32,4 +34,6 @@ public class GameData : ScriptableObject
     public float WrongDaubDisappearTime => wrongDaubDisappearTime;
 
     public float RestartAgainDuration => restartAgainDuration;
+
+    public List<AudioClip> NumbersAudio => numbersAudio;
 }

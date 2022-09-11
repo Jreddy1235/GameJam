@@ -14,6 +14,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
     {
         [SerializeField] private Color _pressedColor;
         [SerializeField] private TMP_Text _text;
+        [SerializeField] private AudioSource _tapAudio;
 
         #region Events
 
@@ -76,6 +77,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 
         private void Clicked()
         {
+            _tapAudio.Play();
             if (_marked)
             {
                 Unmark();
