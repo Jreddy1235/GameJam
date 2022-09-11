@@ -21,5 +21,9 @@ MonoBehaviour:
   gambleRewardMultiplier: 1
   bingoHeadersDelay: 0.6
   wrongDaubDisappearTime: 0.6
-  restartAgainDuration: 1
+  restartAgainDuration: 2
   chipsWonFromBingo: 5000
+  bingoOneCardCost: 1
+  bingoTwoCardCost: 2
+  bingoThreeCardCost: 3
+  bingoFourCardCost: 4

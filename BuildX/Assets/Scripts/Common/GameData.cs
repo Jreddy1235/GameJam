@@ -18,6 +18,10 @@ public class GameData : ScriptableObject
     [SerializeField] private float wrongDaubDisappearTime;
     [SerializeField] private float restartAgainDuration;
     [SerializeField] private int chipsWonFromBingo;
+    [SerializeField] private int bingoOneCardCost;
+    [SerializeField] private int bingoTwoCardCost;
+    [SerializeField] private int bingoThreeCardCost;
+    [SerializeField] private int bingoFourCardCost;
 
     public int DefaultChipsAmount => defaultChipsAmount;
     public int AddChipsAmount => addChipsAmount;
@@ -35,4 +39,12 @@ public class GameData : ScriptableObject
     public float RestartAgainDuration => restartAgainDuration;
 
     public int ChipsWonFromBingo => chipsWonFromBingo;
+
+    public int BingoOneCardCost => bingoOneCardCost;
+
+    public int BingoTwoCardCost => bingoTwoCardCost;
+
+    public int BingoThreeCardCost => bingoThreeCardCost;
+
+    public int BingoFourCardCost => bingoFourCardCost;
 }

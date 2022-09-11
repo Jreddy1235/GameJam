@@ -44,7 +44,7 @@ namespace BrilliantBingo.Code.Scripts
         {
             _restartAgainButton.SetActive(false);
             _restartButton.SetActive(false);
-            Invoke("ShowDialog", 1f);
+            Invoke("ShowDialog", .1f);
         }
 
         public void Restart()
