@@ -20,14 +20,9 @@ public class ErrorPopup : BasePopup
     public void OnSubmit()
     {
         _action?.Invoke();
-        OnClose();
-    }
-
-    public void OnClose()
-    {
         Hide();
     }
-
+    
     public void SetText(string title, string description, string footer, string submit)
     {
         if (!string.IsNullOrEmpty(title))
