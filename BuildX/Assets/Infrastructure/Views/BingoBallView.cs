@@ -58,6 +58,8 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             }
             _letterText.text = BingoLetterCaster.BingoLetterToString(ball.Letter);
             _numberText.text = ball.Number.ToString(CultureInfo.InvariantCulture);
+            var numberAudio = _numberText.GetComponent<NumberAudio>();
+            numberAudio.PlayAudioClip(GameData.Instance.NumbersAudio[ball.Number-1]);
         }
 
         public void ApplyBallSprite(Sprite sprite)
