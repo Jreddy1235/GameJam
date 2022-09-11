@@ -50,9 +50,11 @@ public class GambleView : MonoBehaviour
             var ticketsWon = GameData.Instance.GambleRewardMultiplier * (_selectedSuits.Length == 1 ? 4 : 2);
             txtWon.text = "" + ticketsWon;
             HUDManager.Instance.TotalTickets.Value += ticketsWon;
+            SoundManager.Play(AudioType.Rewards);
         }
         else
         {
+            SoundManager.Play(AudioType.NoMatch);
             goLose.SetActive(true);
         }
     }

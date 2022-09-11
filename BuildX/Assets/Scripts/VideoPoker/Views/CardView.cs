@@ -39,6 +39,7 @@ public class CardView : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler
     {
         IsOnHold = !IsOnHold;
         goHold.SetActive(IsOnHold);
+        SoundManager.Play(AudioType.CardHold);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

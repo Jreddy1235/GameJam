@@ -97,10 +97,15 @@ public class PayTableView : MonoBehaviour
         goDrawBtn.SetActive(false);
         var (handType,amountWon) = handView.Draw();
 
-        if (handType == HandType.None) return;
+        if (handType == HandType.None)
+        {
+            SoundManager.Play(AudioType.NoMatch);
+            return;
+        }
         _selectedRow = _payTableRows.Find(t => t.HandType == handType);
         _selectedRow.ToggleSelection(true, VideoPokerManager.Instance.PayTableData.ColorSelected);
         HUDManager.Instance.TotalChips.Value += amountWon;
+        SoundManager.Play(AudioType.GotChips);
     }
 
     public void OnBetIncreaseBtnClick()

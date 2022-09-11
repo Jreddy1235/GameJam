@@ -171,6 +171,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             DisableCard();
             _numbersPanel.SetActive(false);
             _roundOverPanel.SetActive(true);
+            SoundManager.Play(AudioType.RoundOver);
         }
 
         private void OnBingoBallGenerated(object sender, BingoBallGeneratedEventArgs e)
@@ -286,6 +287,8 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 
             txtWinAmount.text = GameData.Instance.ChipsWonFromBingo.ToString();
             HUDManager.Instance.TotalChips.Value += GameData.Instance.ChipsWonFromBingo;
+            SoundManager.Play(AudioType.GotChips);
+            SoundManager.Play(AudioType.Bingo);
             TurnToCardWinBingoView();
             PlayWinBingoSound();
             OnWinBingoStated();
