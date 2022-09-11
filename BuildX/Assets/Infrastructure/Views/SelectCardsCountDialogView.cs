@@ -75,24 +75,44 @@ namespace BrilliantBingo.Code.Infrastructure.Views
         
         private void OnOneCardGameButtonClick()
         {
+            if (HUDManager.Instance.TotalTickets.Value < GameData.Instance.BingoOneCardCost)
+            {
+                PopupManager.Instance.Get<ErrorPopup>().ShowNotEnoughTickets();
+                return;
+            }
             OnCountOfCardsSelected(BingoCardsLayout.SingleCard);
             HUDManager.Instance.TotalTickets.Value -= GameData.Instance.BingoOneCardCost;
         }
 
         private void OnTwoCardGameButtonClick()
         {
+            if (HUDManager.Instance.TotalTickets.Value < GameData.Instance.BingoTwoCardCost)
+            {
+                PopupManager.Instance.Get<ErrorPopup>().ShowNotEnoughTickets();
+                return;
+            }
             OnCountOfCardsSelected(BingoCardsLayout.TwoCards);
             HUDManager.Instance.TotalTickets.Value -= GameData.Instance.BingoTwoCardCost;
         }
 
         private void OnThreeCardGameButtonClick()
         {
+            if (HUDManager.Instance.TotalTickets.Value < GameData.Instance.BingoThreeCardCost)
+            {
+                PopupManager.Instance.Get<ErrorPopup>().ShowNotEnoughTickets();
+                return;
+            }
             OnCountOfCardsSelected(BingoCardsLayout.ThreeCards);
             HUDManager.Instance.TotalTickets.Value -= GameData.Instance.BingoThreeCardCost;
         }
 
         private void OnFourCardGameButtonClick()
         {
+            if (HUDManager.Instance.TotalTickets.Value < GameData.Instance.BingoFourCardCost)
+            {
+                PopupManager.Instance.Get<ErrorPopup>().ShowNotEnoughTickets();
+                return;
+            }
             OnCountOfCardsSelected(BingoCardsLayout.FourCards);
             HUDManager.Instance.TotalTickets.Value -= GameData.Instance.BingoFourCardCost;
         }

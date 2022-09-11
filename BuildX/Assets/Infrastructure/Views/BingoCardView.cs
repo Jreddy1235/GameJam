@@ -159,26 +159,27 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 
         private void OnDestroy()
         {
-            CoreGameObjectsLocator.Default.BingoBallsSource.BingoBallGenerated -= OnBingoBallGenerated;
+            if (CoreGameObjectsLocator.Default?.BingoBallsSource != null)
+                CoreGameObjectsLocator.Default.BingoBallsSource.BingoBallGenerated -= OnBingoBallGenerated;
             GameController.OnRoundOver -= ShowRoundOver;
-
         }
 
         private void ShowRoundOver()
         {
-            if(IsWinBingo) return;
-            
+            if (IsWinBingo) return;
+
             DisableCard();
             _numbersPanel.SetActive(false);
             _roundOverPanel.SetActive(true);
         }
-        
+
         private void OnBingoBallGenerated(object sender, BingoBallGeneratedEventArgs e)
         {
             Observable.ReturnUnit()
                 .Delay(TimeSpan.FromSeconds(GameData.Instance.BingoHeadersDelay))
                 .Subscribe(_ =>
                 {
+                    if (_bActivate == null) return;
                     DisableActivateHeaders();
                     switch (e.Ball.Letter)
                     {
@@ -203,6 +204,8 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 
         private void DisableActivateHeaders()
         {
+            if (_bActivate == null) return;
+
             _bActivate.SetActive(false);
             _iActivate.SetActive(false);
             _nActivate.SetActive(false);
@@ -276,7 +279,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
         {
             var bingo = CheckForBingo();
             if (!bingo) return;
-            
+
             IsWinBingo = true;
             Finished = true;
             DisableCard();
