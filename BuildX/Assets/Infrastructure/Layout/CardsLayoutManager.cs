@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BrilliantBingo.Code.Infrastructure.Layout.Interfaces;
+using BrilliantBingo.Code.Scripts;
 using UnityEngine;
 
 namespace BrilliantBingo.Code.Infrastructure.Layout
@@ -32,6 +33,13 @@ namespace BrilliantBingo.Code.Infrastructure.Layout
         public void Awake()
         {
             SetVisibilityOfCards(false);
+            GameController.OnRestartTapped += OnRestartTapped;
+        }
+
+        private void OnRestartTapped()
+        {
+            _LeftArrowObj.SetActive(false);
+            _rightArrowObj.SetActive(false);
         }
 
         public void SetVisibilityOfCards(bool flag)

@@ -1,6 +1,7 @@
 ﻿using BrilliantBingo.Code.Infrastructure.Events.Args;
 using BrilliantBingo.Code.Infrastructure.Events.Handlers;
 using BrilliantBingo.Code.Infrastructure.Layout;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,6 +38,11 @@ namespace BrilliantBingo.Code.Infrastructure.Views
         [SerializeField]
         private Button _fourCardGameButton;
 
+        [SerializeField] private TMP_Text txtOneCardCost;
+        [SerializeField] private TMP_Text txtTwoCardCost;
+        [SerializeField] private TMP_Text txtThreeCardCost;
+        [SerializeField] private TMP_Text txtFourCardCost;
+        
         private bool _initialized;
 
         #endregion
@@ -53,23 +59,6 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             gameObject.SetActive(true);
         }
 
-        public void DisableInput()
-        {
-            _oneCardGameButton.interactable = false;
-            _twoCardGameButton.interactable = false;
-            _threeCardGameButton.interactable = false;
-            _fourCardGameButton.interactable = false;
-        }
-
-        public void EnableInput()
-        {
-            _oneCardGameButton.interactable = true;
-            _twoCardGameButton.interactable = true;
-            _threeCardGameButton.interactable = true;
-            _fourCardGameButton.interactable = true;
-  
-        }
-
         public void Initialize()
         {
             if (_initialized) return;
@@ -77,27 +66,55 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             _twoCardGameButton.onClick.AddListener(OnTwoCardGameButtonClick);
             _threeCardGameButton.onClick.AddListener(OnThreeCardGameButtonClick);
             _fourCardGameButton.onClick.AddListener(OnFourCardGameButtonClick);
+            txtOneCardCost.text = GameData.Instance.BingoOneCardCost.ToString();
+            txtTwoCardCost.text = GameData.Instance.BingoTwoCardCost.ToString();
+            txtThreeCardCost.text = GameData.Instance.BingoThreeCardCost.ToString();
+            txtFourCardCost.text = GameData.Instance.BingoFourCardCost.ToString();
             _initialized = true;
         }
         
         private void OnOneCardGameButtonClick()
         {
+            if (HUDManager.Instance.TotalTickets.Value < GameData.Instance.BingoOneCardCost)
+            {
+                PopupManager.Instance.Get<ErrorPopup>().ShowNotEnoughTickets();
+                return;
+            }
             OnCountOfCardsSelected(BingoCardsLayout.SingleCard);
+            HUDManager.Instance.TotalTickets.Value -= GameData.Instance.BingoOneCardCost;
         }
 
         private void OnTwoCardGameButtonClick()
         {
+            if (HUDManager.Instance.TotalTickets.Value < GameData.Instance.BingoTwoCardCost)
+            {
+                PopupManager.Instance.Get<ErrorPopup>().ShowNotEnoughTickets();
+                return;
+            }
             OnCountOfCardsSelected(BingoCardsLayout.TwoCards);
+            HUDManager.Instance.TotalTickets.Value -= GameData.Instance.BingoTwoCardCost;
         }
 
         private void OnThreeCardGameButtonClick()
         {
+            if (HUDManager.Instance.TotalTickets.Value < GameData.Instance.BingoThreeCardCost)
+            {
+                PopupManager.Instance.Get<ErrorPopup>().ShowNotEnoughTickets();
+                return;
+            }
             OnCountOfCardsSelected(BingoCardsLayout.ThreeCards);
+            HUDManager.Instance.TotalTickets.Value -= GameData.Instance.BingoThreeCardCost;
         }
 
         private void OnFourCardGameButtonClick()
         {
+            if (HUDManager.Instance.TotalTickets.Value < GameData.Instance.BingoFourCardCost)
+            {
+                PopupManager.Instance.Get<ErrorPopup>().ShowNotEnoughTickets();
+                return;
+            }
             OnCountOfCardsSelected(BingoCardsLayout.FourCards);
+            HUDManager.Instance.TotalTickets.Value -= GameData.Instance.BingoFourCardCost;
         }
 
         #endregion

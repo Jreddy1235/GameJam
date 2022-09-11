@@ -22,6 +22,12 @@ MonoBehaviour:
   bingoHeadersDelay: 0.6
   wrongDaubDisappearTime: 0.6
   restartAgainDuration: 0
+  restartAgainDuration: 2
+  chipsWonFromBingo: 5000
+  bingoOneCardCost: 1
+  bingoTwoCardCost: 2
+  bingoThreeCardCost: 3
+  bingoFourCardCost: 4
   numbersAudio:
   - {fileID: 8300000, guid: 970927133d532954f9ed5ae3ed74536c, type: 3}
   - {fileID: 8300000, guid: 25bd0f1ba164eef42852d25571e14603, type: 3}

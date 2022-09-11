@@ -5,6 +5,8 @@ using BrilliantBingo.Code.Infrastructure.Events.Args;
 using BrilliantBingo.Code.Infrastructure.Generators;
 using BrilliantBingo.Code.Infrastructure.Models;
 using BrilliantBingo.Code.Infrastructure.Views.Interfaces;
+using BrilliantBingo.Code.Scripts;
+using TMPro;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +15,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 {
     public class BingoCardView : MonoBehaviour, IBingoCardViewController
     {
-        [SerializeField] private Text _cardNoText;
+        [SerializeField] private TMP_Text txtWinAmount;
 
         #region Fields
 
@@ -22,6 +24,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
         [SerializeField] private GameObject _badBingoPanel;
 
         [SerializeField] private GameObject _winBingoPanel;
+        [SerializeField] private GameObject _roundOverPanel;
 
         [SerializeField] private AudioSource _badBingoAudioSource;
 
@@ -123,6 +126,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
         {
             Finished = false;
             _winBingoPanel.SetActive(false);
+            _roundOverPanel.SetActive(false);
             _badBingoPanel.SetActive(false);
 
             _markedNumbersMap = new[,]
@@ -150,11 +154,23 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             CoreGameObjectsLocator.Default.CardsCollection.AddCard(this);
             CoreGameObjectsLocator.Default.BingoBallsSource.BingoBallGenerated -= OnBingoBallGenerated;
             CoreGameObjectsLocator.Default.BingoBallsSource.BingoBallGenerated += OnBingoBallGenerated;
+            GameController.OnRoundOver += ShowRoundOver;
         }
 
         private void OnDestroy()
         {
-            CoreGameObjectsLocator.Default.BingoBallsSource.BingoBallGenerated -= OnBingoBallGenerated;
+            if (CoreGameObjectsLocator.Default?.BingoBallsSource != null)
+                CoreGameObjectsLocator.Default.BingoBallsSource.BingoBallGenerated -= OnBingoBallGenerated;
+            GameController.OnRoundOver -= ShowRoundOver;
+        }
+
+        private void ShowRoundOver()
+        {
+            if (IsWinBingo) return;
+
+            DisableCard();
+            _numbersPanel.SetActive(false);
+            _roundOverPanel.SetActive(true);
         }
 
         private void OnBingoBallGenerated(object sender, BingoBallGeneratedEventArgs e)
@@ -163,6 +179,7 @@ namespace BrilliantBingo.Code.Infrastructure.Views
                 .Delay(TimeSpan.FromSeconds(GameData.Instance.BingoHeadersDelay))
                 .Subscribe(_ =>
                 {
+                    if (_bActivate == null) return;
                     DisableActivateHeaders();
                     switch (e.Ball.Letter)
                     {
@@ -187,6 +204,8 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 
         private void DisableActivateHeaders()
         {
+            if (_bActivate == null) return;
+
             _bActivate.SetActive(false);
             _iActivate.SetActive(false);
             _nActivate.SetActive(false);
@@ -256,35 +275,17 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             }
         }
 
-        private void OnBingoButtonPressed()
-        {
-            Finished = true;
-            DisableCard();
-            var bingo = CheckForBingo();
-            IsWinBingo = bingo;
-            if (bingo)
-            {
-                TurnToCardWinBingoView();
-                PlayWinBingoSound();
-                OnWinBingoStated();
-            }
-            else
-            {
-                TurnToCardBadBingoView();
-                PlayBadBingoSound();
-                OnBadBingoStated();
-            }
-        }
-        
         private void CheckForAutoBingo()
         {
             var bingo = CheckForBingo();
             if (!bingo) return;
-            
+
             IsWinBingo = true;
             Finished = true;
             DisableCard();
-                
+
+            txtWinAmount.text = GameData.Instance.ChipsWonFromBingo.ToString();
+            HUDManager.Instance.TotalChips.Value += GameData.Instance.ChipsWonFromBingo;
             TurnToCardWinBingoView();
             PlayWinBingoSound();
             OnWinBingoStated();
@@ -531,7 +532,6 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 
         public void SetCardNumber(int number)
         {
-            _cardNoText.text = number.ToString();
         }
 
         public void EnableCard()

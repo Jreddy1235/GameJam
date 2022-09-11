@@ -14,12 +14,12 @@ namespace BrilliantBingo.Code.Scripts
 
         public static event Action OnCardsCountSelected;
         public static event Action OnRestartTapped;
+        public static event Action OnRoundOver;
         private float _ballGenerationFrequency = 3f;
 
         [SerializeField]
         private ReadySteadyGoView _readySteadyGoView;
         [SerializeField] private GameObject _generatedNumbersPanel;
-        [SerializeField] private GameObject _roundOverText;
         [SerializeField] private GameObject _restartButton;
         [SerializeField] private GameObject _restartAgainButton;
 
@@ -30,7 +30,6 @@ namespace BrilliantBingo.Code.Scripts
 
         public void Awake()
         {
-            _roundOverText.SetActive(false);
             _generatedNumbersPanel.SetActive(false);
             _readySteadyGoView.Hide();
             _readySteadyGoView.Go += OnGo;
@@ -43,10 +42,9 @@ namespace BrilliantBingo.Code.Scripts
 
         public void Start()
         {
-            _roundOverText.SetActive(false);
             _restartAgainButton.SetActive(false);
             _restartButton.SetActive(false);
-            Invoke("ShowDialog", 1f);
+            Invoke("ShowDialog", .1f);
         }
 
         public void Restart()
@@ -102,8 +100,7 @@ namespace BrilliantBingo.Code.Scripts
 
         private void RoundOver()
         {
-            _restartButton.SetActive(true);
-            _roundOverText.SetActive(true);
+            OnRoundOver?.Invoke();
             _readySteadyGoView.Hide();
             CoreGameObjectsLocator.Default.BingoBallsSource.Stop();
             CoreGameObjectsLocator.Default.CardsCollection.ClearCollection();

@@ -11,6 +11,7 @@ public class HUDView : MonoBehaviour
     private void Awake()
     {
         Camera.main.aspect = 0.5625f;
+        Application.targetFrameRate = 60;
         HUDManager.Instance.TotalChips = new ReactiveProperty<int>(GameData.Instance.DefaultChipsAmount);
         HUDManager.Instance.TotalChips.Subscribe(x => UpdateChipsHUD());
 
