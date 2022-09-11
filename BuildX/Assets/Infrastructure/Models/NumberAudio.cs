@@ -1,3 +1,4 @@
+using UniRx;
 using UnityEngine;
 
 namespace BrilliantBingo.Code.Infrastructure.Models
@@ -8,9 +9,14 @@ namespace BrilliantBingo.Code.Infrastructure.Models
 
         public void PlayAudioClip(AudioClip audioClip)
         {
-            audioSource.clip = audioClip;
-            audioSource.volume = 1;
-            audioSource.PlayOneShot(audioClip);
+            Observable.ReturnUnit()
+                .DelayFrame(1)
+                .Subscribe(_ =>
+                {
+                    audioSource.clip = audioClip;
+                    audioSource.volume = 1;
+                    audioSource.Play();
+                });
         }
     }
 }
