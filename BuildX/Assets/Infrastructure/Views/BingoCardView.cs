@@ -23,8 +23,6 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 
         [SerializeField] private GameObject _winBingoPanel;
 
-        [SerializeField] private Button _bingoButton;
-
         [SerializeField] private AudioSource _badBingoAudioSource;
 
         [SerializeField] private AudioSource _winBingoAudioSource;
@@ -127,8 +125,6 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             _winBingoPanel.SetActive(false);
             _badBingoPanel.SetActive(false);
 
-            _bingoButton.onClick.AddListener(OnBingoButtonPressed);
-
             _markedNumbersMap = new[,]
             {
                 {UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber, UnmarkedNumber},
@@ -154,6 +150,11 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             CoreGameObjectsLocator.Default.CardsCollection.AddCard(this);
             CoreGameObjectsLocator.Default.BingoBallsSource.BingoBallGenerated -= OnBingoBallGenerated;
             CoreGameObjectsLocator.Default.BingoBallsSource.BingoBallGenerated += OnBingoBallGenerated;
+        }
+
+        private void OnDestroy()
+        {
+            CoreGameObjectsLocator.Default.BingoBallsSource.BingoBallGenerated -= OnBingoBallGenerated;
         }
 
         private void OnBingoBallGenerated(object sender, BingoBallGeneratedEventArgs e)
@@ -535,13 +536,11 @@ namespace BrilliantBingo.Code.Infrastructure.Views
 
         public void EnableCard()
         {
-            _bingoButton.interactable = true;
             EnableCardNumbersInput();
         }
 
         public void DisableCard()
         {
-            _bingoButton.interactable = false;
             DisableCardNumbersInput();
         }
 

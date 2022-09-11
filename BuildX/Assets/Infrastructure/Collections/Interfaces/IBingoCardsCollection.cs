@@ -14,6 +14,7 @@ namespace BrilliantBingo.Code.Infrastructure.Collections.Interfaces
         void DisableAllCards();
 
         void EnableAllCards();
+        void Restart();
 
         #endregion
 

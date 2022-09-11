@@ -652,12 +652,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &582522527 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9126158926381486581, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
-    type: 3}
-  m_PrefabInstance: {fileID: 3144306416296309306}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &653139041
 GameObject:
   m_ObjectHideFlags: 0
@@ -1689,11 +1683,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3144306415240290651, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3144306415697473851, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1819,11 +1808,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3144306416627805231, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
-        type: 3}
-      propertyPath: goBase
-      value: 
-      objectReference: {fileID: 582522527}
     - target: {fileID: 3144306416800570313, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1857,11 +1841,6 @@ PrefabInstance:
     - target: {fileID: 3144306417322291732, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9126158926381486581, guid: bcc7e296b6ac7471fbbf11ed867a7a15,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

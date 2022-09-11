@@ -3,6 +3,7 @@ using BrilliantBingo.Code.Infrastructure.Events.Args;
 using BrilliantBingo.Code.Infrastructure.Events.Handlers;
 using BrilliantBingo.Code.Infrastructure.Generators.Interfaces;
 using BrilliantBingo.Code.Infrastructure.Models;
+using BrilliantBingo.Code.Scripts;
 using UnityEngine;
 
 namespace BrilliantBingo.Code.Infrastructure.Generators
@@ -20,6 +21,11 @@ namespace BrilliantBingo.Code.Infrastructure.Generators
         #region Methods
 
         public void Awake()
+        {
+            GameController.OnCardsCountSelected += StartBallGenerator;
+        }
+
+        private void StartBallGenerator()
         {
             _bingoBallGenerator = new BingoBallGenerator();
             _enabled = true;
@@ -67,10 +73,8 @@ namespace BrilliantBingo.Code.Infrastructure.Generators
 
         public void Restart()
         {
-            _bingoBallGenerator = new BingoBallGenerator();
-            _enabled = true;
-            gameObject.SetActive(true);
             OnAllBingoBallsRestart?.Invoke();
+            Stop();
         }
         public void Stop()
         {

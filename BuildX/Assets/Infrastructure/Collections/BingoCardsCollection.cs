@@ -35,6 +35,12 @@ namespace BrilliantBingo.Code.Infrastructure.Collections
             _bingoCards.Clear();
         }
 
+        public void Restart()
+        {
+            _bingoCards.Clear();
+            
+        }
+        
         public void DisableAllCards()
         {
             foreach (var card in _bingoCards)

@@ -118,6 +118,7 @@ namespace BrilliantBingo.Code.Infrastructure.Core
             {
                 numberView.ResetNumber();
             }
+            gameObject.SetActive(false);
         }
 
         private void OnBingoBallGenerated(object sender, BingoBallGeneratedEventArgs e)

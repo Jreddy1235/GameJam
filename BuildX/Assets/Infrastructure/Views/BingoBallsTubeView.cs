@@ -1,4 +1,5 @@
-﻿using BrilliantBingo.Code.Infrastructure.Collections;
+﻿using System;
+using BrilliantBingo.Code.Infrastructure.Collections;
 using BrilliantBingo.Code.Infrastructure.Core;
 using BrilliantBingo.Code.Infrastructure.Events.Args;
 using BrilliantBingo.Code.Scripts;
@@ -56,9 +57,20 @@ namespace BrilliantBingo.Code.Infrastructure.Views
             CoreGameObjectsLocator.Default.BingoBallsSource.BingoBallGenerated -= OnBingoBallGenerated;
             CoreGameObjectsLocator.Default.BingoBallsSource.BingoBallGenerated += OnBingoBallGenerated;
             CoreGameObjectsLocator.Default.BingoBallsSource.OnAllBingoBallsRestart += OnBingoBallRestart;
-            GameController.OnCardsCountSelected += () => goBase.SetActive(true);
+            GameController.OnCardsCountSelected += EnableBase;
+            GameController.OnRestartTapped += DisableBase;
+        }
+
+        private void EnableBase()
+        {
+            goBase.SetActive(true);
         }
         
+        private void DisableBase()
+        {
+            goBase.SetActive(false);
+        }
+
         private void OnBingoBallRestart()
         {
             _bingoBallViewsQueue.ResetAllBingoBalls();
